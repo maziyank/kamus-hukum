@@ -62,7 +62,7 @@ export default function Home() {
                 {
                   isSearching && (
                     <div className="w-full p-6 border-b border-gray-300">
-                      <p className="animate-pulse text-gray-700 text-base">
+                      <div className="animate-pulse text-gray-700 text-base">
                         <div className="w-full bg-gray-300 h-4 rounded-md mb-2"></div>
                         <div className="w-full bg-gray-300 h-4 rounded-md mb-2"></div>
                         <div className="w-full bg-gray-300 h-4 rounded-md mb-2"></div>
@@ -71,7 +71,7 @@ export default function Home() {
                           <div className="w-10 mx-1 bg-gray-300 h-6 rounded-md mb-2"></div>
                           <div className="w-10 mx-1 bg-gray-300 h-6 rounded-md mb-2"></div>
                         </div>
-                      </p>
+                      </div>
                     </div>
                   )
 
