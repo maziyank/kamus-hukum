@@ -4,13 +4,13 @@ import react, { useState } from 'react';
 
 export default function Home() {
   const [searchResult, setSearchResult] = useState([])
-  const [isSearching, setSisSearching] = useState(false)
+  const [isSearching, setIsSearching] = useState(false)
 
   const query = async () => {
-    setSisSearching(true);
+    setIsSearching(true);
     const inputQuery = document.querySelector('#inputQuery') as HTMLInputElement;
-    if (!inputQuery) {
-      setSisSearching(false);
+    if (!inputQuery.value) {
+      setIsSearching(false);
       return
     }
     const ENDPOINT = `https://api.baserow.io/api/database/rows/table/71169/?user_field_names=true&search=${inputQuery.value}`;
@@ -22,7 +22,7 @@ export default function Home() {
 
     response = await response.json();
     setSearchResult(response['results']);
-    setSisSearching(false);
+    setIsSearching(false);
   }
 
   const handleSearchEnter = (event) => {
@@ -83,9 +83,12 @@ export default function Home() {
                         <b>{item.alias}</b> : {item.definition}
                       </p>
                       <div className='w-full flex justify-end'>
-                        <button type="button" className="inline-block p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg">Salin</button>
-                        <button type="button" className="inline-block mx-2 p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg">Bookmark</button>
-                        <button type="button" className="inline-block p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg">Source</button>
+                        <button type="button" className="inline-block mx-2 p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                        </button>
+                        <button type="button" className="inline-block p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </button>
                       </div>
                     </div>
 
