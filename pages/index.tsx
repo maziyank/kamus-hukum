@@ -13,7 +13,7 @@ export default function Home() {
       setIsSearching(false);
       return
     }
-    const ENDPOINT = `https://api.baserow.io/api/database/rows/table/71169/?user_field_names=true&search=${inputQuery.value}`;
+    const ENDPOINT = `https://api.baserow.io/api/database/rows/table/71285/?user_field_names=true&search=${inputQuery.value}`;
     let response = await fetch(ENDPOINT, {
       headers: {
         Authorization: 'Token z8XXWteBKfhsyTKxwMmFcg7cEVswU7pt'
@@ -40,7 +40,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div className="flex w-full bg-slate-200 h-screen justify-center">
+        <div className="flex w-full bg-slate-200 h-auto justify-center">
           <div className='max-w-lg w-full'>
             <h1 className='pt-10 h-auto text-center text-3xl text-slate-600 w-full align-center font-bold'>Kamus Hukum Indonesia</h1>
             <div className='mt-10 mx-2 relative'>
@@ -79,6 +79,9 @@ export default function Home() {
                 {searchResult.map(item => {
                   return (
                     <div className="w-full p-6 border-b border-gray-300" key={item.id}>
+                      <span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 uppercase mb-3">
+                        {item.source}
+                      </span>
                       <p className="text-gray-700 text-base mb-4">
                         <b>{item.alias}</b> : {item.definition}
                       </p>
