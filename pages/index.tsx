@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import react, { useState } from 'react';
+import { useState } from 'react';
+import Link from 'next/link'
 
 export default function Home() {
   const [searchResult, setSearchResult] = useState([]);
@@ -86,6 +87,18 @@ export default function Home() {
         <div className="flex w-full bg-slate-200 min-h-screen h-auto justify-center">
           <div className="max-w-lg w-full p-3">
             <h1 className='font-serif pt-10 h-auto text-center text-3xl text-slate-600 w-full align-center font-bold'>Kamus Hukum Indonesia</h1>
+            <div className='my-2 mx-2 relative flex justify-center'>
+              <Link href="/about">
+                <a className="mx-2 font-semibold underline" href=""><span>Tentang</span></a>
+              </Link> |
+              <Link href="/contributor">
+                <a className="mx-2 font-semibold underline" href=""><span>Kontributor</span></a>
+              </Link>
+              |
+              <Link href="/disclaimer">
+                <a className="mx-2 font-semibold underline" href=""><span>Disclaimer</span></a>
+              </Link>
+            </div>
             <div className='mt-10 mx-2 relative'>
               <input type="text" className="h-14 w-full pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg" id="inputQuery" placeholder="Cari istilah hukum di sini..." onKeyDown={(e) => handleSearchEnter(e)} />
               <div className="absolute top-2 right-2">
@@ -143,7 +156,7 @@ export default function Home() {
 
                       </p>
                       <div className='w-full flex justify-end'>
-                        <button type="button" className="inline-block p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg" onClick={ e => clipboard(item.definition)}>
+                        <button type="button" className="inline-block p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg" onClick={e => clipboard(item.definition)}>
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                         </button>
                       </div>
