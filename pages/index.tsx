@@ -132,7 +132,7 @@ export default function Home() {
                 {searchResult.map(item => {
                   return (
                     <div className="w-full p-6 border-b border-gray-300" key={item.id}>
-                      <a href={item.sourceURL} target="_blank"><span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 uppercase mb-3">
+                      <a href={item.sourceURL} target="_blank" rel="noreferrer"><span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 uppercase mb-3">
                         {item.source}
                       </span></a>
                       <p className="text-gray-700 text-base mb-4" dangerouslySetInnerHTML={{ __html: '<b>' + markText(item.alias, searchKeyword) + '</b> <br/>' + markText(item.definition, searchKeyword) }}>
