@@ -3,8 +3,15 @@ const Disclaimer = () => {
         <div className="w-full bg-slate-200 min-h-screen h-auto justify-center p-10">
             <h1 className="w-full text-xl font-bold font-serif mb-5">Disclaimer</h1>
             <div className="w-full">
-                <p className="mb-3" >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                <p className="mb-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p className="mb-3" >
+                    <ol className="list-decimal">
+                    <li>
+                        Aplikasi ini tidak terafiliasi dengan instansi manapun, karena dikembangkan atas nama pribadi untuk membantu para pihak yang membutuhkan.
+                    </li>
+                    <li>
+                        Penggunaan definisi hukum dari aplikasi ini adalah tanggung jawab pengguna. Meski kami membantu untuk menyediakan data namun pengguna tetap wajib untuk melakukan validasi dengan dokumen aslinya. Hal ini mengingat semua definisi hukum yang ada pada database kami diperoleh dengan cara melakukan parsing terhadap dokumen Undang-Undang yang kami kumpulkan. Proses parsing dilakukan secara otomatis sehingga mungkin terjadi kesalahan ketik. Selain itu, beberapa definisi mungkin berasal dari Undang-Undang yang sudah tidak berlaku.
+                    </li>
+                </ol></p>
             </div>
         </div>
     )
