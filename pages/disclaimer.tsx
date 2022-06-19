@@ -1,7 +1,7 @@
 const Disclaimer = () => {
     return (
         <div className="w-full bg-slate-200 min-h-screen h-auto justify-center p-10">
-            <h1 className="w-full text-xl font-bold font-serif mb-5">Disclaimer</h1>
+            <h1 className="max-w-lg w-full text-xl font-bold font-serif mb-5">Disclaimer</h1>
             <div className="w-full">
                 <p className="mb-3" >
                     <ol className="list-decimal">

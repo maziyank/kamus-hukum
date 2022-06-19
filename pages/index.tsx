@@ -3,11 +3,14 @@ import styles from '../styles/Home.module.css'
 import { useState } from 'react';
 import Link from 'next/link'
 
+
+
 export default function Home() {
   const [searchResult, setSearchResult] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [searchIn, setSearchIn] = useState('all');
+  const [searchIn, setSearchIn] = useState('Definisi');
+
 
   const query = async () => {
     setIsSearching(true);
@@ -20,33 +23,17 @@ export default function Home() {
       return
     }
 
-    let ENDPOINT = 'https://api.baserow.io/api/database/rows/table/71285/?user_field_names=true';
-
-    switch (searchIn) {
-      case 'alias':
-        ENDPOINT += `&size=10&filter__field_426022__contains=${inputQuery.value}`;
-        break;
-
-      case 'description':
-        ENDPOINT += `&size=10&filter__field_426024__contains=${inputQuery.value}`;
-        break;
-
-      case 'all':
-        ENDPOINT += `&size=10&search=${inputQuery.value}`;
-        break;
-
-      default:
-        break;
-    }
+    let ENDPOINT = `http://kamus-hukum.herokuapp.com/api/v1/db/data/v1/kamus-hukum/Kamus?limit=10&offset=0&where=(${searchIn},like,${inputQuery.value})`
 
     let response = await fetch(ENDPOINT, {
       headers: {
-        Authorization: 'Token z8XXWteBKfhsyTKxwMmFcg7cEVswU7pt'
+        'xc-auth': process.env.NEXT_PUBLIC_AUTH,
       }
     });
 
     response = await response.json();
-    setSearchResult(response['results']);
+    console.log(response)
+    setSearchResult(response['list']);
     setIsSearching(false);
   }
 
@@ -108,16 +95,12 @@ export default function Home() {
 
             <div className="flex justify-center mt-5">
               <div className="form-check form-check-inline mx-2">
-                <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="ROSearchIn" id="inlineRadio1" value="alias" onChange={e => handleSearchIn(e)} />
+                <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="ROSearchIn" id="inlineRadio1" value="Definisi" onChange={e => handleSearchIn(e)} checked={searchIn=='Definisi'}/>
                 <label className="form-check-label inline-block text-gray-800 cursor-pointer">Terminologi</label>
               </div>
               <div className="form-check form-check-inline mx-2">
-                <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="ROSearchIn" id="inlineRadio2" value="description" onChange={e => handleSearchIn(e)} />
+                <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="ROSearchIn" id="inlineRadio2" value="Keterangan" onChange={e => handleSearchIn(e)} checked={searchIn=='Keterangan'}/>
                 <label className="form-check-label inline-block text-gray-800 cursor-pointer">Penjelasan</label>
-              </div>
-              <div className="form-check form-check-inline mx-2">
-                <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="ROSearchIn" id="inlineRadio3" value="all" onChange={e => handleSearchIn(e)} />
-                <label className="form-check-label inline-block text-gray-800 cursor-pointer">Semua</label>
               </div>
             </div>
 
@@ -148,15 +131,15 @@ export default function Home() {
                 }
                 {searchResult.map(item => {
                   return (
-                    <div className="w-full p-6 border-b border-gray-300" key={item.id}>
-                      <a href={item.sourceURL} target="_blank" rel="noreferrer"><span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 uppercase mb-3">
-                        {item.source}
+                    <div className="w-full p-6 border-b border-gray-300" key={item.Id}>
+                      <a href={item.Url} target="_blank" rel="noreferrer"><span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 uppercase mb-3">
+                        {item.Sumber}
                       </span></a>
-                      <p className="text-gray-700 text-base mb-4" dangerouslySetInnerHTML={{ __html: '<b>' + markText(item.alias, searchKeyword) + '</b> <br/>' + markText(item.definition, searchKeyword) }}>
+                      <p className="text-gray-700 text-base mb-4" dangerouslySetInnerHTML={{ __html: '<b>' + markText(item.Definisi, searchKeyword) + '</b> <br/>' + markText(item.Keterangan, searchKeyword) }}>
 
                       </p>
                       <div className='w-full flex justify-end'>
-                        <button type="button" className="inline-block p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg" onClick={e => clipboard(item.definition)}>
+                        <button type="button" className="inline-block p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg" onClick={e => clipboard(item.Keterangan)}>
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                         </button>
                       </div>
