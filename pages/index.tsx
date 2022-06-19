@@ -23,7 +23,7 @@ export default function Home() {
       return
     }
 
-    let ENDPOINT = `http://kamus-hukum.herokuapp.com/api/v1/db/data/v1/kamus-hukum/Kamus?limit=10&offset=0&where=(${searchIn},like,${inputQuery.value})`
+    let ENDPOINT = `https://kamus-hukum.herokuapp.com/api/v1/db/data/v1/kamus-hukum/Kamus?limit=10&offset=0&where=(${searchIn},like,${inputQuery.value})`
 
     let response = await fetch(ENDPOINT, {
       headers: {
