@@ -170,8 +170,8 @@ export default function Home() {
               </div>
             )}
 
-            {!isSearching && searchResult && searchResult.length == 0 && (
-              <div className="py-3 px-6 border-b border-gray-200 text-center shadow-sm">
+            {!isSearching && searchKeyword.length > 0 && searchResult && searchResult.length == 0 && (
+              <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white rounded-md">
                 Maaf, tidak ditemukan hasil. <br /> Silakan coba dengan kata kunci yang lain.
               </div>
             )}
