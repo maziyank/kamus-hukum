@@ -10,7 +10,7 @@ export default function Home() {
   const [pageInfo, setpageInfo] = useState({});
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchIn, setSearchIn] = useState('Definisi');
-
+  const [pristineSearch, setpristineSearch] = useState(true);
   const router = useRouter()
 
   const searchData = async () => {
@@ -32,6 +32,7 @@ export default function Home() {
       setSearchIn(router.query.field as string);
       setSearchKeyword(router.query.query as string);
       setpageInfo(response['pageInfo']);
+      setpristineSearch(false);
     } catch (error) {
       console.error(error);
     } finally {
@@ -170,7 +171,7 @@ export default function Home() {
               </div>
             )}
 
-            {!isSearching && searchKeyword.length > 0 && searchResult && searchResult.length == 0 && (
+            {!pristineSearch  && searchResult && searchResult.length == 0 && (
               <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white rounded-md">
                 Maaf, tidak ditemukan hasil. <br /> Silakan coba dengan kata kunci yang lain.
               </div>
