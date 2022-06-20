@@ -73,9 +73,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div className="flex w-full bg-slate-200 min-h-screen h-auto justify-center">
-          <div className="max-w-lg w-full p-3">
-            <h1 className='font-sans pt-10 h-auto text-center text-3xl text-slate-600 w-full align-center font-bold'>Kamus Hukum Indonesia</h1>
+        <div className="flex w-full bg-slate-100 min-h-screen h-auto justify-center">
+          <div className="max-w-lg w-full p-3 bg-slate-300">
+            <h1 className='pt-10 h-auto text-center text-3xl text-slate-800 w-full align-center font-bold'>Kamus Hukum Indonesia</h1>
 
             <div className='my-2 mx-2 relative flex justify-center'>
               <Link href="/about">
@@ -157,7 +157,7 @@ export default function Home() {
             {searchResult && searchResult.length > 0 && (
               <div className='max-w-full flex justify-center space-x-1 my-5'>
                 <Link key={-1} href={buildLink(Math.max(pageInfo["page"] - 1, 1))}>
-                  <a className="flex items-center px-4 py-2 bg-gray-300 rounded-md">
+                  <a className="flex items-center px-4 py-2 bg-slate-300 rounded-md">
                     Prev
                   </a>
                 </Link>
