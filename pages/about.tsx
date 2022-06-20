@@ -25,7 +25,7 @@ const About = () => {
 
                     <div className="mt-4 bg-slate-100 border-l-4 border-slate-500 text-slate-700 p-2" role="alert">
                         <p className="font-bold">Berkontribusi</p>
-                        <p>Jika anda tertarik untuk menjadi kontributor silahkan kunjungi laman repository aplikasi ini <a className="font-bold text-blue-600" href="https://github.com/maziyank/kamus-hukum" target="_blank">di sini</a></p>
+                        <p>Jika anda tertarik untuk menjadi kontributor silahkan kunjungi laman repository aplikasi ini <a className="font-bold text-blue-600" href="https://github.com/maziyank/kamus-hukum" rel="noreferrer" target="_blank">di sini</a></p>
                     </div>
 
 
