@@ -28,7 +28,7 @@ export default function Disclaimer() {
                     </ol>
 
                 </div>
-                <div className="w-full mt-5 flex justify-center">
+                <div className="w-full my-5 flex justify-center">
                     <button className="h-10 w-20 text-white rounded-lg bg-blue-800 hover:bg-red-/600" onClick={e => router.back()}>Kembali</button>
                 </div>
             </div>
