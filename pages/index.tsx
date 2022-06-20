@@ -58,7 +58,7 @@ export default function Home() {
   }
 
   const createPageSequence = (page: number) => {
-    return Array.from({ length: 5 }, (x, i) => i + (page <= 2 ? 1 : (page - 2)))
+    return Array.from({ length: Math.ceil(pageInfo['totalRows'] / 10) }, (x, i) => i + (page <= 2 ? 1 : (page - 2)))
   }
 
   const buildLink = (page: number) => {
