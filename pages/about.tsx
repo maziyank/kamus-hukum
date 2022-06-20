@@ -27,6 +27,9 @@ const About = () => {
                         <li>
                             I Gede Yudi Paramartha
                         </li>
+                        <li>
+                            Putu Jasprayana M.P.
+                        </li>
                     </ol>
 
                     <div className="mt-4 bg-slate-100 border-l-4 border-slate-500 text-slate-700 p-2" role="alert">
