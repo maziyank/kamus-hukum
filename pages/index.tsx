@@ -1,51 +1,45 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link'
-
-
+import { useRouter } from 'next/router'; 
 
 export default function Home() {
   const [searchResult, setSearchResult] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const [pageInfo, setpageInfo] = useState({});
+  const [searchKeyword, setSearchKeyword] = useState("");
   const [searchIn, setSearchIn] = useState('Definisi');
 
+  const router = useRouter()
 
-  const query = async () => {
-    setIsSearching(true);
-    setSearchResult([]);
-    const inputQuery = document.querySelector('#inputQuery') as HTMLInputElement;
-    setSearchKeyword(inputQuery.value);
-
-    if (!inputQuery.value) {
-      setIsSearching(false);
-      return
-    }
-
-    let ENDPOINT = `https://kamus-hukum.herokuapp.com/api/v1/db/data/v1/kamus-hukum/Kamus?limit=10&offset=0&where=(${searchIn},like,${inputQuery.value})`
-
-    let response = await fetch(ENDPOINT, {
-      headers: {
-        'xc-auth': process.env.NEXT_PUBLIC_AUTH,
+  const searchData = async () => {
+    try {
+      if (!router.query.field || !router.query.query) {
+        console.log("not ready");
+        return
       }
-    });
 
-    response = await response.json();
-    console.log(response)
-    setSearchResult(response['list']);
-    setIsSearching(false);
-  }
+      // fetch data
+      setIsSearching(true);
+      const page = router.query.page || 1;
+      let ENDPOINT = `${process.env.NEXT_PUBLIC_SEARCH_ENDPOINT}?limit=10&offset=${(page as number - 1) * 10}&where=(${router.query.field},like,${router.query.query})`
+      let response = await fetch(ENDPOINT, { headers: { 'xc-auth': process.env.NEXT_PUBLIC_AUTH } });
+      response = await response.json();
 
-  const handleSearchEnter = (event) => {
-    if (event.keyCode === 13) {
-      query()
+      // update state
+      setSearchResult(response['list']);
+      setSearchIn(router.query.field as string);
+      setSearchKeyword(router.query.query as string);
+      setpageInfo(response['pageInfo']);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSearching(false);
     }
   }
 
-  const handleSearchIn = event => {
-    setSearchIn(event.target.value);
-  }
+  React.useEffect(() => { searchData() }, [router])
 
   const markText = (text: string, keyword: string): string => {
     if (!keyword || keyword.length == 0) {
@@ -58,8 +52,16 @@ export default function Home() {
     );
   }
 
-  const clipboard = (text) => {
+  const clipboard = (text: string) => {
     navigator.clipboard.writeText(text);
+  }
+
+  const createPageSequence = (page: number) => {
+    return Array.from({ length: 5 }, (x, i) => i + (page <= 2 ? 1 : (page - 2)))
+  }
+
+  const buildLink = (page: number) => {
+    return `?query=${searchKeyword}&field=${searchIn}&page=${page}`;
   }
 
   return (
@@ -73,49 +75,50 @@ export default function Home() {
       <main className={styles.main}>
         <div className="flex w-full bg-slate-200 min-h-screen h-auto justify-center">
           <div className="max-w-lg w-full p-3">
-            <h1 className='font-serif pt-10 h-auto text-center text-3xl text-slate-600 w-full align-center font-bold'>Kamus Hukum Indonesia</h1>
+            <h1 className='font-sans pt-10 h-auto text-center text-3xl text-slate-600 w-full align-center font-bold'>Kamus Hukum Indonesia</h1>
+
             <div className='my-2 mx-2 relative flex justify-center'>
               <Link href="/about">
                 <a className="mx-2 font-semibold underline" href=""><span>Tentang</span></a>
               </Link> |
-              <Link href="/contributor">
-                <a className="mx-2 font-semibold underline" href=""><span>Kontributor</span></a>
-              </Link>
-              |
               <Link href="/disclaimer">
                 <a className="mx-2 font-semibold underline" href=""><span>Disclaimer</span></a>
               </Link>
             </div>
-            <div className='mt-10 mx-2 relative'>
-              <input type="text" className="h-14 w-full pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg" id="inputQuery" placeholder="Cari istilah hukum di sini..." onKeyDown={(e) => handleSearchEnter(e)} />
-              <div className="absolute top-2 right-2">
-                <button className="h-10 w-20 text-white rounded-lg bg-blue-500 hover:bg-red-/600" onClick={() => query()}>Cari</button>
-              </div>
-            </div>
 
-            <div className="flex justify-center mt-5">
-              <div className="form-check form-check-inline mx-2">
-                <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="ROSearchIn" id="inlineRadio1" value="Definisi" onChange={e => handleSearchIn(e)} checked={searchIn=='Definisi'}/>
-                <label className="form-check-label inline-block text-gray-800 cursor-pointer">Terminologi</label>
+            <form method='GET'>
+              <div className='mt-10 mx-2 relative'>
+                <input type="text" className="h-14 w-full pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg" id="inputQuery" placeholder="Cari istilah hukum di sini..."  name="query" value={searchKeyword} onChange={e => setSearchKeyword(e.target.value)} />
+                <div className="absolute top-2 right-2">
+                  <button className="h-10 w-20 text-white rounded-lg bg-blue-500 hover:bg-red-/600" type='submit'>Cari</button>
+                </div>
               </div>
-              <div className="form-check form-check-inline mx-2">
-                <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="ROSearchIn" id="inlineRadio2" value="Keterangan" onChange={e => handleSearchIn(e)} checked={searchIn=='Keterangan'}/>
-                <label className="form-check-label inline-block text-gray-800 cursor-pointer">Penjelasan</label>
+
+              <div className="flex justify-center mt-5">
+                <div className="form-check form-check-inline mx-2">
+                  <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="field" id="inlineRadio1" value="Definisi" checked={searchIn == 'Definisi'} onChange={e => setSearchIn(e.target.value)} />
+                  <label className="form-check-label inline-block text-gray-800 cursor-pointer">Terminologi</label>
+                </div>
+                <div className="form-check form-check-inline mx-2">
+                  <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="field" id="inlineRadio2" value="Keterangan" checked={searchIn == 'Keterangan'} onChange={e => setSearchIn(e.target.value)} />
+                  <label className="form-check-label inline-block text-gray-800 cursor-pointer">Penjelasan</label>
+                </div>
               </div>
-            </div>
+            </form>
 
             <div className="w-full flex mt-4 px-2">
               <div className="w-full block rounded-lg shadow-lg bg-white text-left ">
                 {searchResult && searchResult.length > 0 && (
                   <div className="py-3 px-6 border-b border-gray-300 font-medium">
-                    Hasil Pencarian
+                    Hasil Pencarian ({pageInfo['totalRows']} ditemukan)
                   </div>
                 )
                 }
 
                 {
-                  isSearching && (
-                    <div className="w-full p-6 border-b border-gray-300">
+                  isSearching &&
+                  Array.from(Array(10).keys()).map((item, index) => (
+                    <div key={index} className="w-full p-6 border-b border-gray-300">
                       <div className="animate-pulse text-gray-700 text-base">
                         <div className="w-full bg-gray-300 h-4 rounded-md mb-2"></div>
                         <div className="w-full bg-gray-300 h-4 rounded-md mb-2"></div>
@@ -127,9 +130,10 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                  )
+                  ))
                 }
-                {searchResult.map(item => {
+
+                {!isSearching && searchResult.map(item => {
                   return (
                     <div className="w-full p-6 border-b border-gray-300" key={item.Id}>
                       <a href={item.Url} target="_blank" rel="noreferrer"><span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 uppercase mb-3">
@@ -148,12 +152,32 @@ export default function Home() {
                   )
                 })}
               </div>
+
             </div>
+            {searchResult && searchResult.length > 0 && (
+              <div className='max-w-full flex justify-center space-x-1 my-5'>
+                <Link key={-1} href={buildLink(Math.max(pageInfo["page"] - 1, 1))}>
+                  <a className="flex items-center px-4 py-2 bg-gray-300 rounded-md">
+                    Prev
+                  </a>
+                </Link>
+                {createPageSequence(pageInfo['page']).map(i => (
+                  <Link key={i} href={buildLink(i)}>
+                    <a className={`px-4 py-2 text-gray-700  rounded-md hover:bg-blue-400 hover:text-white ${i == pageInfo["page"] ? 'bg-blue-400 font-bold' : 'bg-gray-300'}`}> {i} </a>
+                  </Link>
+                ))}
+                <Link key={0} href={buildLink(pageInfo["page"] + 1)}>
+                  <a className="px-4 py-2 bg-gray-300 rounded-md hover:bg-blue-400 hover:text-white">
+                    Next
+                  </a>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
-      </main >
+      </main>
 
 
-    </div >
+    </div>
   )
 }
