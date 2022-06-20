@@ -77,14 +77,14 @@ export default function Home() {
         <div className="flex w-full bg-slate-100 min-h-screen h-auto justify-center">
           <div className="max-w-lg w-full bg-slate-300">
 
-            <nav className="flex items-center justify-between flex-wrap bg-blue-900 p-3 shadow-lg">
+            <nav className="fixed top-0 max-w-lg z-50 w-full flex items-center justify-between flex-wrap bg-blue-900 p-3 shadow-lg">
               <div className="flex items-center flex-shrink-0 text-white mr-6">
-                <span className="font-semibold text-xl tracking-tight">Kamus Hukum</span>
-              </div> 
+                <span className="font-semibold text-xl tracking-tight">Kamus Hukum Indonesia</span>
+              </div>
             </nav>
 
             <form method='GET'>
-              <div className='mt-10 mx-2 relative pt-3 px-3'>
+              <div className='mt-20 mx-2 relative pt-3 px-3'>
                 <input type="text" className="h-14 w-full pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg" id="inputQuery" placeholder="Cari istilah hukum di sini..." name="query" value={searchKeyword} onChange={e => setSearchKeyword(e.target.value)} />
                 <div className="absolute top-5 right-5">
                   <button className="h-10 w-20 text-white rounded-lg bg-blue-500 hover:bg-red-/600" type='submit'>Cari</button>
@@ -109,8 +109,7 @@ export default function Home() {
                   <div className="py-3 px-6 border-b border-gray-300 font-medium">
                     Hasil Pencarian ({pageInfo['totalRows']} ditemukan)
                   </div>
-                )
-                }
+                )}
 
                 {
                   isSearching &&
@@ -152,7 +151,7 @@ export default function Home() {
 
             </div>
             {searchResult && searchResult.length > 0 && (
-              <div className='max-w-full flex justify-center space-x-1 my-5'>
+              <div className='max-w-full flex justify-center space-x-1 mt-5 pb-20'>
                 <Link key={-1} href={buildLink(Math.max(pageInfo["page"] - 1, 1))}>
                   <a className="flex items-center px-4 py-2 bg-slate-300 rounded-md">
                     Prev
@@ -160,7 +159,7 @@ export default function Home() {
                 </Link>
                 {createPageSequence(pageInfo['page']).map(i => (
                   <Link key={i} href={buildLink(i)}>
-                    <a className={`px-4 py-2 text-gray-700  rounded-md hover:bg-blue-400 hover:text-white ${i == pageInfo["page"] ? 'bg-blue-400 font-bold' : 'bg-slate-300'}`}> {i} </a>
+                    <a className={`px-4 py-2 text-gray-700  rounded-md hover:bg-blue-400 hover:text-white ${i == pageInfo["page"] ? 'bg-blue-400 font-bold text-blue-800' : 'bg-slate-300'}`}> {i} </a>
                   </Link>
                 ))}
                 <Link key={0} href={buildLink(pageInfo["page"] + 1)}>
@@ -171,7 +170,13 @@ export default function Home() {
               </div>
             )}
 
-            <div className='absolute bottom-0 max-w-lg w-full bg-slate-300 flex justify-center bg-blue-800 p-3 text-white'>
+            {!isSearching && searchResult && searchResult.length == 0 && (
+              <div className="py-3 px-6 border-b border-gray-200 text-center shadow-sm">
+                Maaf, tidak ditemukan hasil. <br /> Silakan coba dengan kata kunci yang lain.
+              </div>
+            )}
+
+            <div className='fixed bottom-0 max-w-lg w-full bg-slate-300 flex justify-center bg-blue-800 p-3 text-white shadow-lg'>
               <Link href="/about">
                 <a className="mx-2 font-semibold hover:text-blue-300" href=""><span>Tentang</span></a>
               </Link> |
