@@ -14,6 +14,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Open for contribution. 
 
-For Developer : Please feel free to make a Pull Request.
-
-For Non-Developer : Contribute by making data verification. Email to maziyank@gmail.com and we will invite you to our collaborator space. 
+- For Developer : Please feel free to make a Pull Request.
+- For Non-Developer : Contribute by making data verification. Email to maziyank@gmail.com and we will invite you to our collaborator space. 
