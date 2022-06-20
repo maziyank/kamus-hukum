@@ -75,7 +75,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className="flex w-full bg-slate-100 min-h-screen h-auto justify-center">
           <div className="max-w-lg w-full p-3 bg-slate-300">
-            <h1 className='pt-10 h-auto text-center text-3xl text-slate-800 w-full align-center font-bold'>Kamus Hukum Indonesia</h1>
+            <h1 className='pt-10 h-auto text-center text-2xl text-slate-800 w-full align-center font-bold'>Kamus Hukum Indonesia</h1>
 
             <div className='my-2 mx-2 relative flex justify-center'>
               <Link href="/about">
@@ -163,11 +163,11 @@ export default function Home() {
                 </Link>
                 {createPageSequence(pageInfo['page']).map(i => (
                   <Link key={i} href={buildLink(i)}>
-                    <a className={`px-4 py-2 text-gray-700  rounded-md hover:bg-blue-400 hover:text-white ${i == pageInfo["page"] ? 'bg-blue-400 font-bold' : 'bg-gray-300'}`}> {i} </a>
+                    <a className={`px-4 py-2 text-gray-700  rounded-md hover:bg-blue-400 hover:text-white ${i == pageInfo["page"] ? 'bg-blue-400 font-bold' : 'bg-slate-300'}`}> {i} </a>
                   </Link>
                 ))}
                 <Link key={0} href={buildLink(pageInfo["page"] + 1)}>
-                  <a className="px-4 py-2 bg-gray-300 rounded-md hover:bg-blue-400 hover:text-white">
+                  <a className="px-4 py-2 bg-slate-300 rounded-md hover:bg-blue-400 hover:text-white">
                     Next
                   </a>
                 </Link>
