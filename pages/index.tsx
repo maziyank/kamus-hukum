@@ -1,6 +1,7 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
+import Pagination from "../components/pagination";
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   context
@@ -39,7 +40,7 @@ export interface HomeProps {
   searchResult: any[];
   searchQuery: string;
   searchField: "Definisi" | "Keterangan";
-  pageInfo: {};
+  pageInfo: any;
 }
 
 export default function Home({
@@ -181,41 +182,16 @@ export default function Home({
             );
           })}
         </div>
-        {searchResult && searchResult.length > 0 && (
-          <div className="max-w-full flex justify-center space-x-1 mt-5 pb-20">
-            <Link key={-1} href={buildLink(Math.max(pageInfo["page"] - 1, 1))}>
-              <a className="flex items-center px-4 py-2 bg-slate-300 rounded-md">
-                Prev
-              </a>
-            </Link>
-            {createPageSequence(pageInfo["page"]).map((i) => (
-              <Link key={i} href={buildLink(i)}>
-                <a
-                  className={`px-4 py-2 text-gray-700  rounded-md hover:bg-blue-400 hover:text-white ${
-                    i == pageInfo["page"]
-                      ? "bg-blue-400 font-bold text-blue-800"
-                      : "bg-slate-300"
-                  }`}
-                >
-                  {" "}
-                  {i}{" "}
-                </a>
-              </Link>
-            ))}
-            <Link key={0} href={buildLink(pageInfo["page"] + 1)}>
-              <a className="px-4 py-2 bg-slate-300 rounded-md hover:bg-blue-400 hover:text-white">
-                Next
-              </a>
-            </Link>
-          </div>
-        )}
+        {searchResult.length && <Pagination pageInfo={pageInfo} maxItems={5} />}
 
-        {searchResult && searchResult.length == 0 && (
+        {!searchResult.length && (
           <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white rounded-md">
             Maaf, tidak ditemukan hasil. <br /> Silakan coba dengan kata kunci
             yang lain.
           </div>
         )}
+
+        <div className="h-10"></div>
       </div>
     </>
   );
