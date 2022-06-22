@@ -1,57 +1,44 @@
+import React from 'react';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head'
+import Link from 'next/link';
 import styles from '../styles/Home.module.css'
-import React, { useState } from 'react';
-import Link from 'next/link'
-import { useRouter } from 'next/router';
 
-export default function Home() {
-  const [searchResult, setSearchResult] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [pageInfo, setpageInfo] = useState({});
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchIn, setSearchIn] = useState('Definisi');
-  const [pristineSearch, setpristineSearch] = useState(true);
-  const router = useRouter()
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (context) => {
+  const searchQuery = context.query.query?.toString() ?? "";
+  const searchField = context.query.field?.toString() === "Keterangan" ? "Keterangan" : "Definisi";
 
-  const searchData = async () => {
-    try {
-      if (!router.query.field || !router.query.query) {
-        console.log("not ready");
-        return
-      }
+  const page = parseInt(context.query.page?.toString()) || 1;
+  const itemsPerPage = parseInt(context.query.itemsPerPage?.toString()) || 10;
+  const limit = itemsPerPage;
+  const offset = (page - 1) * limit;
 
-      // fetch data
-      setIsSearching(true);
-      const page = router.query.page || 1;
-      let ENDPOINT = `${process.env.NEXT_PUBLIC_SEARCH_ENDPOINT}?limit=10&offset=${(page as number - 1) * 10}&where=(${router.query.field},like,${router.query.query})`
-      let response = await fetch(ENDPOINT, { headers: { 'xc-auth': process.env.NEXT_PUBLIC_AUTH } });
-      response = await response.json();
 
-      // update state
-      setSearchResult(response['list']);
-      setSearchIn(router.query.field as string);
-      setSearchKeyword(router.query.query as string);
-      setpageInfo(response['pageInfo']);
-      setpristineSearch(false);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsSearching(false);
+  const baseUrl = process.env.API_BASE_URL;
+  const xcAuth = process.env.API_XC_AUTH;
+
+  const url = `${baseUrl}?limit=${limit}&offset=${offset}&where=(${searchField},like,${searchQuery})`
+
+  const {list: searchResult, pageInfo} = await fetch(url, {headers: {"xc-auth": xcAuth}}).then((response) => response.json());
+
+  return {
+    props: {
+      searchResult,
+      searchQuery,
+      searchField,
+      pageInfo
     }
   }
+}
 
-  React.useEffect(() => { searchData() }, [router])
+export interface HomeProps {
+  searchResult: any[],
+  searchQuery: string,
+  searchField: "Definisi" | "Keterangan"
+  pageInfo: {}
+}
 
-  const markText = (text: string, keyword: string): string => {
-    if (!keyword || keyword.length == 0) {
-      return text;
-    }
-
-    return text.replace(
-      new RegExp(keyword, "gi"),
-      (match) => `<span class="bg-yellow-100">${match}</span>`,
-    );
-  }
+export default function Home({searchResult, searchQuery, searchField, pageInfo}: HomeProps) {
 
   const clipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -62,7 +49,18 @@ export default function Home() {
   }
 
   const buildLink = (page: number) => {
-    return `?query=${searchKeyword}&field=${searchIn}&page=${page}`;
+    return `?query=${searchQuery}&field=${searchField}&page=${page}`;
+  }
+
+  const markText = (text: string, keyword: string): string => {
+    if (!keyword || keyword.length == 0) {
+      return text;
+    }
+
+    return text.replace(
+      new RegExp(keyword, "gi"),
+      (match) => `<span class="bg-yellow-100">${match}</span>`,
+    );
   }
 
   return (
@@ -86,7 +84,7 @@ export default function Home() {
 
             <form method='GET'>
               <div className='mt-20 mx-2 relative pt-3 px-3'>
-                <input type="text" className="h-14 w-full pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg" id="inputQuery" placeholder="Cari istilah hukum di sini..." name="query" value={searchKeyword} onChange={e => setSearchKeyword(e.target.value)} />
+                <input type="text" className="h-14 w-full pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg" id="inputQuery" placeholder="Cari istilah hukum di sini..." name="query" defaultValue={searchQuery} />
                 <div className="absolute top-5 right-5">
                   <button className="h-10 w-20 text-white rounded-lg bg-blue-500 hover:bg-red-/600" type='submit'>Cari</button>
                 </div>
@@ -94,11 +92,11 @@ export default function Home() {
 
               <div className="flex justify-center mt-2 p-3">
                 <div className="form-check form-check-inline mx-2">
-                  <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="field" id="inlineRadio1" value="Definisi" checked={searchIn == 'Definisi'} onChange={e => setSearchIn(e.target.value)} />
+                  <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="field" id="inlineRadio1" value="Definisi" defaultChecked={searchField === 'Definisi'} />
                   <label className="form-check-label inline-block text-gray-800 cursor-pointer">Terminologi</label>
                 </div>
                 <div className="form-check form-check-inline mx-2">
-                  <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="field" id="inlineRadio2" value="Keterangan" checked={searchIn == 'Keterangan'} onChange={e => setSearchIn(e.target.value)} />
+                  <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="field" id="inlineRadio2" value="Keterangan" defaultChecked={searchField === 'Keterangan'} />
                   <label className="form-check-label inline-block text-gray-800 cursor-pointer">Penjelasan</label>
                 </div>
               </div>
@@ -112,31 +110,13 @@ export default function Home() {
                   </div>
                 )}
 
-                {
-                  isSearching &&
-                  Array.from(Array(10).keys()).map((item, index) => (
-                    <div key={index} className="w-full p-6 border-b border-gray-300">
-                      <div className="animate-pulse text-gray-700 text-base">
-                        <div className="w-full bg-gray-300 h-4 rounded-md mb-2"></div>
-                        <div className="w-full bg-gray-300 h-4 rounded-md mb-2"></div>
-                        <div className="w-full bg-gray-300 h-4 rounded-md mb-2"></div>
-                        <div className='w-full flex justify-end mt-5'>
-                          <div className="w-10 mx-1 bg-gray-300 h-6 rounded-md mb-2"></div>
-                          <div className="w-10 mx-1 bg-gray-300 h-6 rounded-md mb-2"></div>
-                          <div className="w-10 mx-1 bg-gray-300 h-6 rounded-md mb-2"></div>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                }
-
-                {!isSearching && searchResult.map(item => {
+                {searchResult.map(item => {
                   return (
                     <div className="w-full p-6 border-b border-gray-300" key={item.Id}>
                       <a href={item.Url} target="_blank" rel="noreferrer"><span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 uppercase mb-3">
                         {item.Sumber}
                       </span></a>
-                      <p className="text-gray-700 text-base mb-4" dangerouslySetInnerHTML={{ __html: '<b>' + markText(item.Definisi, searchKeyword) + '</b> <br/>' + markText(item.Keterangan, searchKeyword) }}>
+                      <p className="text-gray-700 text-base mb-4" dangerouslySetInnerHTML={{ __html: '<b>' + markText(item.Definisi, searchQuery) + '</b> <br/>' + markText(item.Keterangan, searchQuery) }}>
 
                       </p>
                       <div className='w-full flex justify-end'>
@@ -171,7 +151,7 @@ export default function Home() {
               </div>
             )}
 
-            {!pristineSearch  && searchResult && searchResult.length == 0 && (
+            {searchResult && searchResult.length == 0 && (
               <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white rounded-md">
                 Maaf, tidak ditemukan hasil. <br /> Silakan coba dengan kata kunci yang lain.
               </div>
