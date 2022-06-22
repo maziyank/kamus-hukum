@@ -1,6 +1,4 @@
-import React from "react";
 import { GetServerSideProps } from "next";
-import Link from "next/link";
 import Pagination from "../components/pagination";
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (
@@ -92,11 +90,14 @@ export default function Home({
               className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
               type="radio"
               name="field"
-              id="inlineRadio1"
+              id="fieldDefinisi"
               value="Definisi"
               defaultChecked={searchField === "Definisi"}
             />
-            <label className="form-check-label inline-block text-gray-800 cursor-pointer">
+            <label
+              htmlFor="fieldDefinisi"
+              className="form-check-label inline-block text-gray-800 cursor-pointer"
+            >
               Terminologi
             </label>
           </div>
@@ -105,11 +106,14 @@ export default function Home({
               className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
               type="radio"
               name="field"
-              id="inlineRadio2"
+              id="fieldKeterangan"
               value="Keterangan"
               defaultChecked={searchField === "Keterangan"}
             />
-            <label className="form-check-label inline-block text-gray-800 cursor-pointer">
+            <label
+              htmlFor="fieldKeterangan"
+              className="form-check-label inline-block text-gray-800 cursor-pointer"
+            >
               Penjelasan
             </label>
           </div>
