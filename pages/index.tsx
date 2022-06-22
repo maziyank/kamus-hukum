@@ -53,17 +53,6 @@ export default function Home({
     navigator.clipboard.writeText(text);
   };
 
-  const createPageSequence = (page: number) => {
-    return Array.from(
-      { length: Math.ceil(pageInfo["totalRows"] / 10) },
-      (x, i) => i + (page <= 2 ? 1 : page - 2)
-    );
-  };
-
-  const buildLink = (page: number) => {
-    return `?query=${searchQuery}&field=${searchField}&page=${page}`;
-  };
-
   const markText = (text: string, keyword: string): string => {
     if (!keyword || keyword.length == 0) {
       return text;
@@ -160,6 +149,7 @@ export default function Home({
                   <button
                     type="button"
                     className="inline-block p-2 bg-slate-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-slate-700 hover:shadow-lg"
+                    aria-label="Copy to clipboard"
                     onClick={(e) => clipboard(item.Keterangan)}
                   >
                     <svg
