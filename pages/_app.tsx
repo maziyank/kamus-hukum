@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Kamus Hukum</title>
-        <meta name="description">Kamus Hukum Indonesia</meta>
+        <meta name="description" content="Kamus Hukum Indonesia"></meta>
       </Head>
       <Layout>
         <Component {...pageProps} />
