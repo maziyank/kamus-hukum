@@ -56,8 +56,8 @@ export default function Home({
             </div>
           )}
 
-          {searchResult.map((item) => {
-            return (<SearchResultItem kamusItem={item} />
+          {searchResult.map((item, i) => {
+            return (<SearchResultItem kamusItem={item} key={i} />
             );
           })}
         </div>

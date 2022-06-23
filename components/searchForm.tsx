@@ -25,7 +25,7 @@ export default function SearchForm() {
       });
       event.preventDefault();
     },
-    [query, field]
+    [router, query, field]
   );
 
   return (
