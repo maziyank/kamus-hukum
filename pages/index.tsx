@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 import Pagination from "../components/pagination";
+import SearchForm from "../components/searchForm";
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   context
@@ -64,61 +65,7 @@ export default function Home({
 
   return (
     <>
-      <form method="GET">
-        <div className="relative pt-3 px-5">
-          <input
-            type="text"
-            className="h-14 w-full mt-5 pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg"
-            id="inputQuery"
-            placeholder="Cari istilah hukum di sini..."
-            name="query"
-            defaultValue={searchQuery}
-          />
-          <div className="absolute top-10 right-7">
-            <button
-              className="h-10 w-20 text-white rounded-lg bg-blue-800 hover:bg-red-600"
-              type="submit"
-            >
-              Cari
-            </button>
-          </div>
-        </div>
-
-        <div className="flex justify-center mt-2 p-3">
-          <div className="form-check form-check-inline mx-2">
-            <input
-              className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-              type="radio"
-              name="field"
-              id="fieldDefinisi"
-              value="Definisi"
-              defaultChecked={searchField === "Definisi"}
-            />
-            <label
-              htmlFor="fieldDefinisi"
-              className="form-check-label inline-block text-gray-800 cursor-pointer"
-            >
-              Terminologi
-            </label>
-          </div>
-          <div className="form-check form-check-inline mx-2">
-            <input
-              className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-              type="radio"
-              name="field"
-              id="fieldKeterangan"
-              value="Keterangan"
-              defaultChecked={searchField === "Keterangan"}
-            />
-            <label
-              htmlFor="fieldKeterangan"
-              className="form-check-label inline-block text-gray-800 cursor-pointer"
-            >
-              Penjelasan
-            </label>
-          </div>
-        </div>
-      </form>
+      <SearchForm />
 
       <div className="w-full flex flex-col mt-4 px-5">
         <div className="w-full block rounded-lg shadow-lg bg-white text-left ">
