@@ -6,7 +6,7 @@ export default function Layout({ children }) {
     <div className="w-full min-h-screen h-auto flex justify-center bg-slate-100">
       <div className="max-w-lg w-full min-h-full flex flex-col bg-slate-300">
         <Navbar />
-        <main className="w-full">{children}</main>
+        <main className="w-full grow">{children}</main>
         <Footer />
       </div>
     </div>
