@@ -56,7 +56,7 @@ export default function Home({ searchResult, pageInfo }: HomeProps) {
             (item, i) => item && <SearchResultItem kamusItem={item} key={i} />
           )}
         </div>
-        {searchResult.length && <Pagination pageInfo={pageInfo} maxItems={5} />}
+        {!!searchResult.length && <Pagination pageInfo={pageInfo} maxItems={5} />}
 
         {!searchResult.length && (
           <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white rounded-md">
