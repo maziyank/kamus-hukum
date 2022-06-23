@@ -65,18 +65,18 @@ export default function Home({
   return (
     <>
       <form method="GET">
-        <div className="relative pt-3 px-3">
+        <div className="relative pt-3 px-5">
           <input
             type="text"
-            className="h-14 w-full pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg"
+            className="h-14 w-full mt-5 pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg"
             id="inputQuery"
             placeholder="Cari istilah hukum di sini..."
             name="query"
             defaultValue={searchQuery}
           />
-          <div className="absolute top-5 right-5">
+          <div className="absolute top-10 right-7">
             <button
-              className="h-10 w-20 text-white rounded-lg bg-blue-500 hover:bg-red-/600"
+              className="h-10 w-20 text-white rounded-lg bg-blue-800 hover:bg-red-600"
               type="submit"
             >
               Cari
