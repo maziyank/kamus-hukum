@@ -1,11 +1,16 @@
 import { useRouter } from "next/router";
-import { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 
 export default function SearchForm() {
   const router = useRouter();
 
-  const [query, setQuery] = useState(router.query.query);
-  const [field, setField] = useState(router.query.field);
+  const [query, setQuery] = useState(router.query.query || "");
+  const [field, setField] = useState(router.query.field || "Definisi");
+
+  useEffect(() => {
+    setQuery(router.query.query || "");
+    setField(router.query.field || "Definisi")
+  }, [router]);
 
   const onQueryChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setQuery(event.target.value),
