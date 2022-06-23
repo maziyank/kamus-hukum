@@ -11,9 +11,12 @@ export default function Pagination({ pageInfo, maxItems }: PaginationProps) {
   const items = [pageInfo.page];
   let i = 1;
   while (items.length < maxItems) {
-    if (pageInfo.page - i > 0) items.unshift(pageInfo.page - i);
+    const prev = pageInfo.page - i;
+    if (prev > 0) items.unshift(prev);
     if (items.length > maxItems) break;
-    if (pageInfo.page + i <= lastPage) items.push(pageInfo.page + i);
+    const next = pageInfo.page + i;
+    if (next <= lastPage) items.push(next);
+    if (prev <= 0 && next > lastPage) break;
     i++;
   }
 
@@ -44,11 +47,13 @@ export default function Pagination({ pageInfo, maxItems }: PaginationProps) {
           </a>
         </Link>
       ))}
-      <Link key="last" href={{ query: { page: lastPage } }}>
-        <a className="px-4 py-2 bg-slate-300 rounded-md hover:bg-blue-400 hover:text-white">
-          Akhir
-        </a>
-      </Link>
+      {!pageInfo.isLastPage && (
+        <Link key="last" href={{ query: { page: lastPage } }}>
+          <a className="px-4 py-2 bg-slate-300 rounded-md hover:bg-blue-400 hover:text-white">
+            Akhir
+          </a>
+        </Link>
+      )}
     </div>
   );
 }
