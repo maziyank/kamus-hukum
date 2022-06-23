@@ -1,11 +1,13 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full flex items-center justify-between flex-wrap bg-gradient-to-r to-cyan-600 from-blue-800 p-3 shadow-lg">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <span className="font-semibold text-xl tracking-tight">
+      <Link href="/">
+        <a className="font-semibold text-xl text-white tracking-tight">
           Kamus Hukum Indonesia
-        </span>
-      </div>
+        </a>
+      </Link>
     </nav>
   );
 }
