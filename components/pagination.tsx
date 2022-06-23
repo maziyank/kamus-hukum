@@ -51,7 +51,7 @@ export default function Pagination({ pageInfo, maxItems }: PaginationProps) {
         </Link>
       ))}
       {!pageInfo.isLastPage && (
-        <Link key="last" href={{ ...router.query, query: { page: lastPage } }}>
+        <Link key="last" href={{ query: { ...router.query, page: lastPage } }}>
           <a className="px-4 py-2 bg-slate-300 rounded-md hover:bg-blue-400 hover:text-white">
             Akhir
           </a>
