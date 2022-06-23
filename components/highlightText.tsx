@@ -1,6 +1,6 @@
 export interface HighlightTextProps {
   text: string;
-  keyword: string;
+  keyword?: string;
   markClassName?: string;
 }
 
@@ -9,7 +9,7 @@ export default function HighlightText({
   keyword,
   markClassName,
 }: HighlightTextProps) {
-  if (!keyword.trim()) return <span>{text}</span>;
+  if (!keyword || !keyword.trim()) return <span>{text}</span>;
 
   const regex = new RegExp(
     `(${keyword.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")})`,

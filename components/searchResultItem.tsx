@@ -10,6 +10,7 @@ export default function SearchResultItem({
   kamusItem: { Id, Definisi, Keterangan, Sumber, Url, Verified },
 }: SearchResultItemProps) {
   const router = useRouter();
+  const keyword = router.query.query?.toString()
 
   return (
     <div className="w-full p-6 border-b border-gray-300" key={Id}>
@@ -39,12 +40,12 @@ export default function SearchResultItem({
       <p className="text-gray-700 text-base mb-4">
         <HighlightText
           text={Definisi}
-          keyword={router.query.query.toString()}
+          keyword={keyword}
         />
         <br />
         <HighlightText
           text={Keterangan}
-          keyword={router.query.query.toString()}
+          keyword={keyword}
         />
       </p>
       <div className="w-full flex justify-end">

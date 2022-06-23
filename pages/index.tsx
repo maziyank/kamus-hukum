@@ -39,11 +39,7 @@ export interface HomeProps {
   pageInfo: PageInfo;
 }
 
-export default function Home({
-  searchResult,
-  pageInfo,
-}: HomeProps) {
-
+export default function Home({ searchResult, pageInfo }: HomeProps) {
   return (
     <>
       <SearchForm />
@@ -56,10 +52,9 @@ export default function Home({
             </div>
           )}
 
-          {searchResult.map((item, i) => {
-            return (<SearchResultItem kamusItem={item} key={i} />
-            );
-          })}
+          {searchResult.map(
+            (item, i) => item && <SearchResultItem kamusItem={item} key={i} />
+          )}
         </div>
         {searchResult.length && <Pagination pageInfo={pageInfo} maxItems={5} />}
 
