@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export interface PaginationProps {
   pageInfo: PageInfo;
@@ -6,6 +7,8 @@ export interface PaginationProps {
 }
 
 export default function Pagination({ pageInfo, maxItems }: PaginationProps) {
+  const router = useRouter();
+
   const lastPage = Math.ceil(pageInfo.totalRows / parseInt(pageInfo.pageSize));
 
   const items = [pageInfo.page];
@@ -26,7 +29,7 @@ export default function Pagination({ pageInfo, maxItems }: PaginationProps) {
         <Link
           key="first"
           href={{
-            query: { page: 1 },
+            query: { ...router.query, page: 1 },
           }}
         >
           <a className="px-4 py-2 bg-slate-300 rounded-md hover:bg-blue-400 hover:text-white">
@@ -35,7 +38,7 @@ export default function Pagination({ pageInfo, maxItems }: PaginationProps) {
         </Link>
       )}
       {items.map((i) => (
-        <Link key={i} href={{ query: { page: i } }}>
+        <Link key={i} href={{ query: { ...router.query, page: i } }}>
           <a
             className={`px-4 py-2 text-gray-700  rounded-md hover:bg-blue-400 hover:text-white ${
               i == pageInfo["page"]
@@ -48,7 +51,7 @@ export default function Pagination({ pageInfo, maxItems }: PaginationProps) {
         </Link>
       ))}
       {!pageInfo.isLastPage && (
-        <Link key="last" href={{ query: { page: lastPage } }}>
+        <Link key="last" href={{ ...router.query, query: { page: lastPage } }}>
           <a className="px-4 py-2 bg-slate-300 rounded-md hover:bg-blue-400 hover:text-white">
             Akhir
           </a>
