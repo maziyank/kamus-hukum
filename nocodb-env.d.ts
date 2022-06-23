@@ -5,3 +5,12 @@ interface PageInfo {
   isFirstPage: boolean,
   isLastPage: boolean
 }
+
+interface KamusItem {
+  Id: number,
+  Definisi: string,
+  Keterangan: string
+  Sumber: string,
+  Url: string,
+  Verified: boolean
+}
