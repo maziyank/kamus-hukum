@@ -12,5 +12,11 @@ interface KamusItem {
   Keterangan: string
   Sumber: string,
   Url: string,
-  Verified: boolean
+  No: number,
+  Tahun: number,
+  CreatedAt: string,
+  UpdatedAt: string,
+  Verified?: boolean,
+  VerifiedBy?: string,
+  VerifiedAt?: string
 }
