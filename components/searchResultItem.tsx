@@ -7,13 +7,13 @@ export interface SearchResultItemProps {
 }
 
 export default function SearchResultItem({
-  kamusItem: { Id, Definisi, Keterangan, Sumber, Url, Verified },
+  kamusItem: { Definisi, Keterangan, Sumber, Url, Verified },
 }: SearchResultItemProps) {
   const router = useRouter();
-  const keyword = router.query.query?.toString()
+  const keyword = router.query.query?.toString();
 
   return (
-    <div className="w-full p-6 border-b border-gray-300" key={Id}>
+    <div className="w-full p-6 border-b border-gray-300">
       <div className="flex flex-row w-full justify-between">
         <a href={Url} target="_blank" rel="noreferrer">
           <span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 uppercase mb-3">
@@ -37,16 +37,11 @@ export default function SearchResultItem({
           </span>
         )}
       </div>
+      <h6 className="font-bold mb-2">
+        <HighlightText text={Definisi} keyword={keyword} />
+      </h6>
       <p className="text-gray-700 text-base mb-4">
-        <HighlightText
-          text={Definisi}
-          keyword={keyword}
-        />
-        <br />
-        <HighlightText
-          text={Keterangan}
-          keyword={keyword}
-        />
+        <HighlightText text={Keterangan} keyword={keyword} />
       </p>
       <div className="w-full flex justify-end">
         <CopyToClipboardButton data={Keterangan} />
