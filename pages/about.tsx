@@ -23,10 +23,10 @@ const About = () => {
         </p>
         <p className="font-bold">Kontributor Kamus Hukum:</p>
         <ol className="pl-4 list-decimal">
-          <li>Bakhtiar Amaludin</li>
-          <li>Sukirno</li>
-          <li>I Gede Yudi Paramartha</li>
-          <li>Putu Jasprayana M.P.</li>
+          <li><a href="https://github.com/maziyank" rel="noreferrer" target="_blank">Bakhtiar Amaludin</a></li>
+          <li><a href="https://github.com/mblonyox" rel="noreferrer" target="_blank">Sukirno</a></li>
+          <li><a href="https://id.linkedin.com/in/i-gede-yudi-paramartha-99613073" rel="noreferrer" target="_blank">I Gede Yudi Paramartha</a></li>
+          <li><a href="https://id.linkedin.com/in/putujasprayana" rel="noreferrer" target="_blank">Putu Jasprayana M.P.</a></li>
         </ol>
 
         <div
@@ -43,8 +43,8 @@ const About = () => {
               rel="noreferrer"
               target="_blank"
             >
-              di sini
-            </a>
+              di sini </a> atau kirimkan pesan ke <a rel="noreferrer" target="_blank" href="mailto:admin@kamus-hukum.com">admin@kamus-hukum.com</a>
+
           </p>
         </div>
       </div>
