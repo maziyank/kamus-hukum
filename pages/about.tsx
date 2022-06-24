@@ -29,6 +29,7 @@ const About = () => {
           <li><a href="https://id.linkedin.com/in/i-gede-yudi-paramartha-99613073" rel="noreferrer" target="_blank">I Gede Yudi Paramartha</a></li>
           <li><a href="https://id.linkedin.com/in/putujasprayana" rel="noreferrer" target="_blank">Putu Jasprayana M.P.</a></li>
           <li><a href="https://id.linkedin.com/in/ismulaksan92" rel="noreferrer" target="_blank">Ismul Aksan</a></li>
+          <li><a href="https://id.linkedin.com/in/ika-kardian-rahmatullah-ba84a685" rel="noreferrer" target="_blank">Ika Kardian Rahmatullah</a></li>
         </ol>
 
         <div
