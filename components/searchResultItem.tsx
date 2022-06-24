@@ -16,7 +16,7 @@ export default function SearchResultItem({
     <div className="w-full p-6 border-b border-gray-300">
       <div className="flex flex-row w-full justify-between">
         <a href={Url} target="_blank" rel="noreferrer">
-          <span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 uppercase mb-3">
+          <span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 hover:bg-blue-100 uppercase mb-3">
             {Sumber}
           </span>
         </a>
@@ -44,7 +44,7 @@ export default function SearchResultItem({
         <HighlightText text={Definisi} keyword={keyword} />
       </h6>
       <p className="text-gray-700 text-base mb-4">
-        <HighlightText text={Keterangan} keyword={keyword} />
+        <HighlightText text={Keterangan + '.' } keyword={keyword} />
       </p>
       <div className="w-full flex justify-end">
         <CopyToClipboardButton data={Keterangan} />
