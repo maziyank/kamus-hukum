@@ -6,8 +6,8 @@ const About = () => {
   return (
     <>
       <div className="p-8">
-        <h1 className="text-xl font-bold mb-5">Tentang Aplikasi</h1>
-
+        <h1 className="text-xl font-bold mb-2">Tentang Aplikasi</h1>
+        <div className="border-t border-gray-400 w-full h-2"></div>
         <p className="mb-3">
           Aplikasi Kamus Hukum memuat kumpulan definisi hukum yang diambil dari
           peraturan perundang-undangan yang ada di Indonesia. Aplikasi ini dapat
@@ -21,11 +21,17 @@ const About = () => {
           terminologi hukum di database kami agar semakin dapat memberikan nilai
           tambah kepada pengguna.
         </p>
-        <p className="font-bold">Kontributor Kamus Hukum:</p>
+        <p className="font-bold text-xl mb-2 mt-5">Kontributor Kamus Hukum:</p>
+        <div className="border-t border-gray-400 w-full h-2"></div>
+        <p className="font-semibold">Developer</p>
         <ol className="pl-4 list-decimal">
           <li><a href="https://github.com/maziyank" rel="noreferrer" target="_blank">Bakhtiar Amaludin</a></li>
           <li><a href="https://github.com/mblonyox" rel="noreferrer" target="_blank">Sukirno</a></li>
           <li><a href="https://github.com/tayarsutayar" rel="noreferrer" target="_blank">Achmadaniar Anindya Rosadi</a></li>
+        </ol>
+        <p className="font-semibold mt-2">Data Management:</p>
+        <ol className="pl-4 list-decimal">
+        <li><a href="#" rel="noreferrer" target="_blank">Zachroni</a></li>
           <li><a href="https://id.linkedin.com/in/i-gede-yudi-paramartha-99613073" rel="noreferrer" target="_blank">I Gede Yudi Paramartha</a></li>
           <li><a href="https://id.linkedin.com/in/putujasprayana" rel="noreferrer" target="_blank">Putu Jasprayana M.P.</a></li>
           <li><a href="https://id.linkedin.com/in/ismulaksan92" rel="noreferrer" target="_blank">Ismul Aksan</a></li>
@@ -52,7 +58,7 @@ const About = () => {
           </p>
         </div>
       </div>
-      <div className="w-full my-5 flex justify-center">
+      <div className="w-full mb-10 mt-2 flex justify-center">
         <button
           className="h-10 w-20 text-white rounded-lg bg-blue-700 hover:bg-red-/600"
           onClick={(e) => router.back()}

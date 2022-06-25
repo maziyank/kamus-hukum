@@ -6,8 +6,8 @@ export default function Disclaimer() {
   return (
     <>
       <div className="w-full p-8">
-        <h1 className="text-xl font-bold mb-5">Disclaimer</h1>
-
+        <h1 className="text-xl font-bold mb-2">Disclaimer</h1>
+        <div className="border-t border-gray-400 w-full h-2"></div>
         <p> Harap membaca dan memahai prasyarat berikut dengan seksama:</p>
         <ol className="list-decimal pl-5 mt-2">
           <li className="mt-2">
