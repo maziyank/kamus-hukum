@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import CopyToClipboardButton from "./copyToClipboardButton";
 import HighlightText from "./highlightText";
@@ -16,13 +17,15 @@ export default function SearchResultItem({
     <div className="w-full p-6 border-b border-gray-300">
       <div className="flex flex-row w-full justify-between">
         <a href={Url} target="_blank" rel="noreferrer">
-          <span className="text-xs inline-block py-1 px-2 uppercase rounded bg-slate-200 hover:bg-blue-100 uppercase mb-3">
+          <span className="text-xs inline-block py-1 px-2 rounded bg-slate-200 hover:bg-blue-100 uppercase mb-3">
             {Sumber}
           </span>
         </a>
         {Verified && (
-          <div className='has-tooltip'>
-            <span className='tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-8 -ml-8 text-white text-xs'>Terverifikasi</span>
+          <div className="has-tooltip">
+            <span className="tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-8 -ml-8 text-white text-xs">
+              Terverifikasi
+            </span>
             <span className="bg-blue-100 h-6 w-6 text-blue-800 text-sm font-semibold inline-flex items-center p-1 rounded-full dark:bg-blue-200 dark:text-blue-800 cursor-pointer">
               <svg
                 className="w-3.5 h-3.5"
@@ -40,11 +43,20 @@ export default function SearchResultItem({
           </div>
         )}
       </div>
-      <h6 className="font-bold mb-2">
-        <HighlightText text={Definisi} keyword={keyword} />
-      </h6>
+      <Link
+        href={{
+          pathname: "/definisi/[definisi]",
+          query: { definisi: Definisi },
+        }}
+      >
+        <a className="hover:text-blue-300 underline">
+          <h6 className="font-bold mb-2">
+            <HighlightText text={Definisi} keyword={keyword} />
+          </h6>
+        </a>
+      </Link>
       <p className="text-gray-700 text-base mb-4">
-        <HighlightText text={Keterangan + '.' } keyword={keyword} />
+        <HighlightText text={Keterangan + "."} keyword={keyword} />
       </p>
       <div className="w-full flex justify-end">
         <CopyToClipboardButton data={Keterangan} />
