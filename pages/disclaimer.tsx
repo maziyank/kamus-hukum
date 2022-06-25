@@ -43,7 +43,7 @@ export default function Disclaimer() {
       </div>
       <div className="w-full my-5 flex justify-center">
         <button
-          className="h-10 w-20 text-white rounded-lg bg-blue-800 hover:bg-red-/600"
+          className="h-10 w-20 text-white rounded-lg bg-blue-800 hover:bg-red-600"
           onClick={(e) => router.back()}
         >
           Kembali

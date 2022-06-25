@@ -60,7 +60,7 @@ const About = () => {
       </div>
       <div className="w-full mb-10 mt-2 flex justify-center">
         <button
-          className="h-10 w-20 text-white rounded-lg bg-blue-700 hover:bg-red-/600"
+          className="h-10 w-20 text-white rounded-lg bg-blue-700 hover:bg-red-600"
           onClick={(e) => router.back()}
         >
           Kembali
