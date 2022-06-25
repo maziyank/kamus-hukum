@@ -30,6 +30,7 @@ const About = () => {
           <li><a href="https://id.linkedin.com/in/putujasprayana" rel="noreferrer" target="_blank">Putu Jasprayana M.P.</a></li>
           <li><a href="https://id.linkedin.com/in/ismulaksan92" rel="noreferrer" target="_blank">Ismul Aksan</a></li>
           <li><a href="https://id.linkedin.com/in/ika-kardian-rahmatullah-ba84a685" rel="noreferrer" target="_blank">Ika Kardian Rahmatullah</a></li>
+          <li><a href="https://id.linkedin.com/in/iqbal-irsyaddi-70988a5a" rel="noreferrer" target="_blank">Iqbal Irsyaddi</a></li>
         </ol>
 
         <div
