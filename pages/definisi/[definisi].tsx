@@ -101,7 +101,11 @@ export default function DefinisiPage({
             .map(({ Id, Url, Definisi, Sumber, Verified, Keterangan }, i) => (
               <li className="mb-10 ml-4" key={Id}>
                 <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">{i + 1}</div>
-                <div className="ml-2 mb-1 text-sm font-normal leading-none text-slate-400 dark:text-slate-500">{Sumber}</div>
+                <div className="ml-2 mb-1 text-sm font-normal leading-none text-slate-400 dark:text-slate-500">
+                  <a href={Url} target="_blank" rel="noreferrer">
+                    <span className="pt-2 cursor-pointer">{Sumber}</span>
+                  </a>
+                </div>
                 <Link
                   href={{
                     pathname: "/definisi/[definisi]",
@@ -128,7 +132,9 @@ export default function DefinisiPage({
               <li className="mb-10 ml-4" key={Id}>
                 <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">{i + 1}</div>
                 <div className="ml-2 mb-1 text-sm font-normal leading-none text-slate-400 dark:text-slate-500 flex flex-row justify-between ">
-                  <span className="pt-2">{Sumber}</span>
+                  <a href={Url} target="_blank" rel="noreferrer">
+                    <span className="pt-2 cursor-pointer">{Sumber}</span>
+                  </a>
                   <div className="has-tooltip">
                     <span className="tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-7 text-white text-xs text-center">
                       {(listMiripMap[Id] * 100).toFixed(2) + '% Mirip'}
