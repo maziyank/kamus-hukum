@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 
 export const getServerSideProps: GetServerSideProps<DefinisiPageProps> = async (
   context
@@ -88,7 +89,7 @@ export default function DefinisiPage({
           ))}
       </div>
 
-      <div className="w-full block rounded-lg shadow-lg bg-white text-left p-6">
+      {data.filter(({ Id }, i) => CurrentId !== Id).length > 0 && (<div className="w-full block rounded-lg shadow-lg bg-white text-left p-6">
         <p>
           Definisi <b>{definisi}</b> juga digunakan di dalam {pageInfo.totalRows - 1} {" "}
           Peraturan Perundang-undangan lainnya.
@@ -97,16 +98,23 @@ export default function DefinisiPage({
         <ol className="relative border-l border-slate-200 dark:border-slate-700 mt-5 ml-4">
           {data
             .filter(({ Id }, i) => CurrentId !== Id)
-            .map(({ Id, Url, Sumber, Verified, Keterangan }, i) => (
+            .map(({ Id, Url, Definisi, Sumber, Verified, Keterangan }, i) => (
               <li className="mb-10 ml-4" key={Id}>
                 <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">{i + 1}</div>
                 <div className="ml-2 mb-1 text-sm font-normal leading-none text-slate-400 dark:text-slate-500">{Sumber}</div>
-                <h3 className="ml-2 text-md font-bold text-slate-900 dark:text-white">{definisi}</h3>
+                <Link
+                  href={{
+                    pathname: "/definisi/[definisi]",
+                    query: { definisi: Definisi, Id },
+                  }}
+                ><h3 className="ml-2 text-md font-bold text-slate-900 dark:text-white hover:text-blue-800 hover:underline cursor-pointer">{Definisi}</h3>
+                </Link>
+
                 <p className="ml-2 mb-4 text-base font-normal text-slate-500 dark:text-slate-400">{Keterangan}.</p>
               </li>
             ))}
         </ol>
-      </div>
+      </div>)}
 
       <div className="w-full block rounded-lg shadow-lg bg-white text-left p-6 mt-4">
         <p>
@@ -121,11 +129,23 @@ export default function DefinisiPage({
                 <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">{i + 1}</div>
                 <div className="ml-2 mb-1 text-sm font-normal leading-none text-slate-400 dark:text-slate-500 flex flex-row justify-between ">
                   <span className="pt-2">{Sumber}</span>
-                  <span className="text-xs inline-block py-1 px-2 rounded bg-blue-100 text-blue-400 uppercase ml-2">
-                    { (listMiripMap[Id] * 100).toFixed(2) + ' %'}
-                  </span>
+                  <div className="has-tooltip">
+                    <span className="tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-7 text-white text-xs text-center">
+                      {(listMiripMap[Id] * 100).toFixed(2) + '% Mirip'}
+                    </span>
+                    <span className="text-xs inline-block py-1 px-2 rounded bg-blue-100 text-blue-400 uppercase ml-2 cursor-pointer">
+                      {(listMiripMap[Id] * 100).toFixed(2) + ' %'}
+                    </span>
+                  </div>
                 </div>
-                <h3 className="ml-2 text-md font-bold text-slate-900 dark:text-white">{Definisi}</h3>
+                <Link
+                  href={{
+                    pathname: "/definisi/[definisi]",
+                    query: { definisi: Definisi, Id },
+                  }}
+                ><h3 className="ml-2 text-md font-bold text-slate-900 dark:text-white hover:text-blue-800 hover:underline cursor-pointer">{Definisi}</h3>
+                </Link>
+
                 <p className="ml-2 mb-4 text-base font-normal text-slate-500 dark:text-slate-400">{Keterangan}.</p>
               </li>
             ))}
