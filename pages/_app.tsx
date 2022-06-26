@@ -12,6 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Kamus Hukum</title>
         <meta name="description" content="Kamus Hukum Indonesia"></meta>
+        <meta name="google-site-verification" content="Y8Jgr7-kIDCWbqqboq-OIqk625BKYpDn1q7eTi45agk" />
       </Head>
       <Layout>
         <Component {...pageProps} />
