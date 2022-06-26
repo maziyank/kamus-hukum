@@ -8,7 +8,7 @@ export interface SearchResultItemProps {
 }
 
 export default function SearchResultItem({
-  kamusItem: { Definisi, Keterangan, Sumber, Url, Verified },
+  kamusItem: { Id, Definisi, Keterangan, Sumber, Url, Verified },
 }: SearchResultItemProps) {
   const router = useRouter();
   const keyword = router.query.query?.toString();
@@ -46,7 +46,7 @@ export default function SearchResultItem({
       <Link
         href={{
           pathname: "/definisi/[definisi]",
-          query: { definisi: Definisi },
+          query: { definisi: Definisi, Id },
         }}
       >
         <a className="hover:text-blue-300 underline">

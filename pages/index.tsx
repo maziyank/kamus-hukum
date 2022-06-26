@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   const baseUrl = process.env.API_BASE_URL;
   const xcAuth = process.env.API_XC_AUTH;
 
-  const url = `${baseUrl}?limit=${limit}&offset=${offset}&sort=-Tahun,-No&where=(${searchField},like,${searchQuery})`;
+  const url = `${baseUrl}/Kamus?limit=${limit}&offset=${offset}&sort=-Tahun,-No&where=(${searchField},like,${searchQuery})`;
 
   const { list: searchResult, pageInfo } = await fetch(url, {
     headers: { "xc-auth": xcAuth },
