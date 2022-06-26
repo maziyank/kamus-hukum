@@ -111,7 +111,7 @@ export default function DefinisiPage({
                       <span className="tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-8 -ml-8 text-white text-xs">
                         Terverifikasi
                       </span>
-                      <span className="bg-blue-100 h-6 w-6 mt-2 text-blue-800 text-sm font-semibold inline-flex items-center p-1 rounded-full dark:bg-blue-200 dark:text-blue-800 cursor-pointer">
+                      <span className="bg-blue-100 h-6 w-6 text-blue-800 text-sm font-semibold inline-flex items-center p-1 rounded-full dark:bg-blue-200 dark:text-blue-800 cursor-pointer">
                         <svg
                           className="w-3.5 h-3.5"
                           fill="currentColor"
