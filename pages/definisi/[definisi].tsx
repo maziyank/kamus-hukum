@@ -10,8 +10,8 @@ export const getServerSideProps: GetServerSideProps<DefinisiPageProps> = async (
   const baseUrl = process.env.API_BASE_URL;
   const xcAuth = process.env.API_XC_AUTH;
 
-  const url = `${baseUrl}/Kamus?sort=-Tahun,-No&where=(Definisi,eq,${definisi})`;
-  const urlMirip = `${baseUrl}/Kemiripan?sort=-Score&where=(Def1,eq,${CurrentId})`;
+  const url = `${baseUrl}/Kamus?sort=-Tahun,-No&where=(Definisi,eq,${definisi})&limit=100`;
+  const urlMirip = `${baseUrl}/Kemiripan?sort=-Score&where=(Def1,eq,${CurrentId})&limit=100`;
 
   const { list: data, pageInfo } = await fetch(url, {
     headers: { "xc-auth": xcAuth },
@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<DefinisiPageProps> = async (
     .map(({ Def2: Id, Score }) => { return [Id, Score] }));
 
   const listMiripId = Array.from(listMiripScore.keys()).join(',')
-  const urlMiripData = `${baseUrl}/Kamus?where=(Id,in,${listMiripId})`;
+  const urlMiripData = `${baseUrl}/Kamus?where=(Id,in,${listMiripId})&limit=100`;
 
   const { list: miripData } = await fetch(urlMiripData, {
     headers: { "xc-auth": xcAuth },
