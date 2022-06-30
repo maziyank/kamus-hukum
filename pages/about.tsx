@@ -1,13 +1,17 @@
 import { useRouter } from "next/router";
+import Image from 'next/image';
+import { useTheme } from 'next-themes'
 
 const About = () => {
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
 
   return (
     <>
       <div className="p-8">
-        <h1 className="text-xl font-bold mb-2">Tentang Aplikasi</h1>
-        <div className="border-t border-gray-400 w-full h-2"></div>
+        <div className="flex justify-center mb-5">
+        <Image src={resolvedTheme == 'dark' ? "/long_logo_white.png" : "/long_logo.png"} alt="me" width="300" height="30" />
+        </div>
         <p className="mb-3">
           Aplikasi Kamus Hukum memuat kumpulan definisi hukum yang diambil dari
           peraturan perundang-undangan yang ada di Indonesia. Aplikasi ini dapat
