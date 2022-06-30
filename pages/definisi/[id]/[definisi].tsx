@@ -84,11 +84,11 @@ export default function DefinisiPage({
           <ol className="relative border-l border-slate-200 dark:border-slate-700 mt-5 ml-4">
             {definisiLain.list.map(
               ({ Id, Url, Definisi, Sumber, Verified, Keterangan }, i) => (
-                <li className="mb-10 ml-4" key={Id}>
+                <li className="mb-10 ml-6" key={Id}>
                   <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">
                     {i + 1}
                   </div>
-                  <div className="flex flex-row justify-between ml-2 mb-1 text-sm font-normal leading-none text-slate-400 dark:text-slate-500">
+                  <div className="flex flex-row justify-between mb-2 text-sm font-normal leading-none text-slate-700 dark:text-slate-500">
                     <a
                       href={Url}
                       className="pt-2"
@@ -125,12 +125,12 @@ export default function DefinisiPage({
                       query: { definisi: Definisi, id: Id },
                     }}
                   >
-                    <a className="ml-2 text-md font-bold text-slate-900 dark:text-white hover:text-blue-800 hover:underline cursor-pointer">
+                    <a className="text-md font-bold text-slate-900 dark:text-white hover:text-blue-800 hover:underline cursor-pointer">
                       {Definisi}
                     </a>
                   </Link>
 
-                  <p className="ml-2 mb-4 text-base font-normal text-slate-500 dark:text-slate-400">
+                  <p className="text-base font-normal break-words text-slate-700 dark:text-slate-500">
                     {Keterangan}.
                   </p>
                 </li>
@@ -152,13 +152,13 @@ export default function DefinisiPage({
               },
               i
             ) => (
-              <li className="mb-10 ml-4" key={Id}>
+              <li className="mb-10 ml-6" key={Id}>
                 <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">
                   {i + 1}
                 </div>
-                <div className="flex flex-row justify-between ml-2 mb-1 text-sm font-normal leading-none text-slate-400 dark:text-slate-500 flex flex-row">
+                <div className="flex flex-row justify-between mb-2 text-sm font-normal leading-none text-slate-700 dark:text-slate-500">
                   <a
-                    className="mt-2"
+                    className="pt-2"
                     href={Url}
                     target="_blank"
                     rel="noreferrer"
@@ -191,7 +191,7 @@ export default function DefinisiPage({
                       <span className="tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-7 text-white text-xs text-center">
                         {(parseFloat(Score) * 100).toFixed(2) + "% Mirip"}
                       </span>
-                      <span className="text-xs inline-block py-1 px-2 rounded bg-blue-100 text-blue-400 uppercase ml-2 cursor-pointer">
+                      <span className="text-xs inline-block py-1 px-2 rounded bg-blue-100 text-blue-700 uppercase ml-2 cursor-pointer">
                         {(parseFloat(Score) * 100).toFixed(2) + " %"}
                       </span>
                     </div>
@@ -203,12 +203,12 @@ export default function DefinisiPage({
                     query: { definisi: Definisi, id: Id },
                   }}
                 >
-                  <a className="ml-2 text-md font-bold text-slate-900 dark:text-white hover:text-blue-800 hover:underline cursor-pointer">
+                  <a className="text-md font-bold text-slate-900 dark:text-white hover:text-blue-800 hover:underline cursor-pointer">
                     {Definisi}
                   </a>
                 </Link>
 
-                <p className="ml-2 mb-4 text-base font-normal text-slate-500 dark:text-slate-400">
+                <p className="mb-4 text-base font-normal break-words text-slate-700 dark:text-slate-500">
                   {Keterangan}.
                 </p>
               </li>
