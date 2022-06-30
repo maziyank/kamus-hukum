@@ -49,7 +49,7 @@ export default function Home({ searchResult, pageInfo }: HomeProps) {
       <SearchForm />
 
       <div className="w-full flex flex-col mt-4 px-5">
-        <div className="w-full block rounded-lg shadow-lg bg-white text-left ">
+        <div className="w-full block rounded-lg shadow-lg text-left bg-white dark:bg-slate-700">
           {searchResult && searchResult.length > 0 && (
             <div className="py-3 px-6 border-b border-gray-300 font-medium">
               Hasil Pencarian ({pageInfo["totalRows"]} ditemukan)
@@ -65,7 +65,7 @@ export default function Home({ searchResult, pageInfo }: HomeProps) {
         )}
 
         {!searchResult.length && (
-          <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white rounded-md">
+          <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white dark:bg-slate-700 rounded-md">
             Maaf, tidak ditemukan hasil. <br /> Silakan coba dengan kata kunci
             yang lain.
           </div>

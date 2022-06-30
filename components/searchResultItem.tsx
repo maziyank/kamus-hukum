@@ -23,7 +23,7 @@ export default function SearchResultItem({
             query: { definisi: Definisi, id: Id },
           }}
         >
-          <a className="hover:text-blue-300 underline mr-2">
+          <a className="hover:text-blue-500 dark:hover:text-blue-300 underline mr-2">
             <h6 className="font-bold mb-2">
               <HighlightText text={Definisi} keyword={keyword} />
             </h6>
@@ -53,12 +53,12 @@ export default function SearchResultItem({
         )}
       </div>
 
-      <p className="text-slate-700 text-base mb-4 break-words">
+      <p className="text-slate-700 dark:text-slate-50 text-base mb-4 break-words">
         <HighlightText text={Keterangan + "."} keyword={keyword} />
       </p>
       <div className="w-full flex justify-between">
         <a href={Url} target="_blank" rel="noreferrer">
-          <span className="text-xs inline-block py-1 px-2 rounded bg-slate-200 hover:bg-blue-100 uppercase mb-3">
+          <span className="text-xs inline-block py-1 px-2 rounded bg-slate-200 dark:bg-slate-600 hover:bg-blue-100 uppercase mb-3">
             {Sumber}
           </span>
         </a>

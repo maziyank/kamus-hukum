@@ -55,18 +55,18 @@ export default function DefinisiPage({
 }: DefinisiPageProps) {
   return (
     <div className="w-full p-5">
-      <div className="w-full block rounded-lg shadow-lg bg-white text-left p-6 mb-5">
+      <div className="w-full block rounded-lg shadow-lg bg-white dark:bg-slate-700 text-left p-6 mb-5">
         <h2 className="text-xl font-bold">{kamus.Definisi}</h2>
 
         <div className="my-2 border-t border-gray-300">
-          <p className="text-gray-700 text-base mt-2">{kamus.Keterangan}.</p>
-          <p className="text-black text-sm bg-gray-200 rounded-md p-2 my-2 cursor-pointer">
+          <p className="text-base mt-2">{kamus.Keterangan}.</p>
+          <p className="text-sm bg-gray-200 dark:bg-slate-600 rounded-md p-2 my-2 cursor-pointer">
             Sumber:{" "}
             <a href={kamus.Url} rel="noreferrer" target="_blank">
               {kamus.Sumber}
             </a>
           </p>
-          <p className="text-black text-sm bg-gray-200 rounded-md p-2 my-2 cursor-pointer">
+          <p className="text-sm bg-gray-200 dark:bg-slate-600 rounded-md p-2 my-2 cursor-pointer">
             Status:{" "}
             {kamus.Verified ? " Sudah diverifikasi" : " Belum diverifikasi"}
           </p>
@@ -74,21 +74,21 @@ export default function DefinisiPage({
       </div>
 
       {definisiLain.list.length > 0 && (
-        <div className="w-full block rounded-lg shadow-lg bg-white text-left p-6">
+        <div className="w-full block rounded-lg shadow-lg bg-white dark:bg-slate-700 text-left p-6">
           <p>
             Definisi <b>{kamus.Definisi}</b> juga digunakan di dalam{" "}
             {definisiLain.pageInfo.totalRows} Peraturan Perundang-undangan
             lainnya.
           </p>
           <div className="border-b border-gray-300 pt-2"></div>
-          <ol className="relative border-l border-slate-200 dark:border-slate-700 mt-5 ml-4">
+          <ol className="relative border-l border-slate-300 dark:border-slate-600 mt-5 ml-4">
             {definisiLain.list.map(
               ({ Id, Url, Definisi, Sumber, Verified, Keterangan }, i) => (
                 <li className="mb-10 ml-6" key={Id}>
-                  <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">
+                  <div className="absolute w-8 h-8 rounded-full -left-4 border border-slate-300 dark:border-slate-600 bg-slate-200 dark:bg-slate-700 flex justify-center items-center text-sm">
                     {i + 1}
                   </div>
-                  <div className="flex flex-row justify-between mb-2 text-sm font-normal leading-none text-slate-700 dark:text-slate-500">
+                  <div className="flex flex-row justify-between mb-2 text-sm font-normal leading-none">
                     <a
                       href={Url}
                       className="pt-2"
@@ -125,12 +125,12 @@ export default function DefinisiPage({
                       query: { definisi: Definisi, id: Id },
                     }}
                   >
-                    <a className="text-md font-bold text-slate-900 dark:text-white hover:text-blue-800 hover:underline cursor-pointer">
+                    <a className="text-md font-bold hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer">
                       {Definisi}
                     </a>
                   </Link>
 
-                  <p className="text-base font-normal break-words text-slate-700 dark:text-slate-500">
+                  <p className="text-base font-normal break-words">
                     {Keterangan}.
                   </p>
                 </li>
@@ -140,32 +140,32 @@ export default function DefinisiPage({
         </div>
       )}
 
-      <div className="w-full block rounded-lg shadow-lg bg-white text-left p-6 mt-4">
-        <p>Definisi lain dengan penjelasan yang mirip.</p>
-        <div className="border-b border-gray-300 pt-2"></div>
-        <ol className="relative border-l border-slate-200 dark:border-slate-700 mt-5 ml-4">
-          {definisiMirip.list.map(
-            (
-              {
-                kamus: { Id, Url, Definisi, Sumber, Verified, Keterangan },
-                Score,
-              },
-              i
-            ) => (
-              <li className="mb-10 ml-6" key={Id}>
-                <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">
-                  {i + 1}
-                </div>
-                <div className="flex flex-row justify-between mb-2 text-sm font-normal leading-none text-slate-700 dark:text-slate-500">
-                  <a
-                    className="pt-2"
-                    href={Url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <span className="cursor-pointer">{Sumber}</span>
-                  </a>
-                  <div className="flex flex-row">
+      {definisiMirip.list.length > 0 && (
+        <div className="w-full block rounded-lg shadow-lg bg-white dark:bg-slate-700 text-left p-6 mt-4">
+          <p>Definisi lain dengan penjelasan yang mirip.</p>
+          <div className="border-b border-gray-300 pt-2"></div>
+          <ol className="relative border-l border-slate-300 dark:border-slate-600 mt-5 ml-4">
+            {definisiMirip.list.map(
+              (
+                {
+                  kamus: { Id, Url, Definisi, Sumber, Verified, Keterangan },
+                  Score,
+                },
+                i
+              ) => (
+                <li className="mb-10 ml-6" key={Id}>
+                  <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 flex justify-center items-center text-sm">
+                    {i + 1}
+                  </div>
+                  <div className="flex flex-row justify-between mb-2 text-sm font-normal leading-none">
+                    <a
+                      className="pt-2"
+                      href={Url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <span className="cursor-pointer">{Sumber}</span>
+                    </a>
                     {Verified && (
                       <div className="has-tooltip">
                         <span className="tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-8 -ml-8 text-white text-xs">
@@ -196,26 +196,26 @@ export default function DefinisiPage({
                       </span>
                     </div>
                   </div>
-                </div>
-                <Link
-                  href={{
-                    pathname: "/definisi/[id]/[definisi]",
-                    query: { definisi: Definisi, id: Id },
-                  }}
-                >
-                  <a className="text-md font-bold text-slate-900 dark:text-white hover:text-blue-800 hover:underline cursor-pointer">
-                    {Definisi}
-                  </a>
-                </Link>
+                  <Link
+                    href={{
+                      pathname: "/definisi/[id]/[definisi]",
+                      query: { definisi: Definisi, id: Id },
+                    }}
+                  >
+                    <a className="text-md font-bold hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer">
+                      {Definisi}
+                    </a>
+                  </Link>
 
-                <p className="mb-4 text-base font-normal break-words text-slate-700 dark:text-slate-500">
-                  {Keterangan}.
-                </p>
-              </li>
-            )
-          )}
-        </ol>
-      </div>
+                  <p className="mb-4 text-base font-normal break-words">
+                    {Keterangan}.
+                  </p>
+                </li>
+              )
+            )}
+          </ol>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeTogglerButton from "./themeTogglerButton";
 
 export default function Navbar() {
   return (
@@ -8,6 +9,7 @@ export default function Navbar() {
           Kamus Hukum Indonesia
         </a>
       </Link>
+      <ThemeTogglerButton />
     </nav>
   );
 }

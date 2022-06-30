@@ -1,5 +1,11 @@
 import { useRouter } from "next/router";
-import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 export default function SearchForm() {
   const router = useRouter();
@@ -9,7 +15,7 @@ export default function SearchForm() {
 
   useEffect(() => {
     setQuery(router.query.query || "");
-    setField(router.query.field || "Definisi")
+    setField(router.query.field || "Definisi");
   }, [router]);
 
   const onQueryChange = useCallback(
@@ -38,7 +44,7 @@ export default function SearchForm() {
       <div className="relative pt-3 px-5">
         <input
           type="text"
-          className="h-14 w-full mt-5 pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg"
+          className="h-14 w-full mt-5 pl-5 pr-20 rounded-lg z-0 focus:shadow focus:outline-none shadow-lg dark:bg-slate-700"
           id="inputQuery"
           name="query"
           placeholder="Cari istilah hukum di sini..."
@@ -47,7 +53,7 @@ export default function SearchForm() {
         />
         <div className="absolute top-10 right-7">
           <button
-            className="h-10 w-20 text-white rounded-lg bg-blue-800 hover:bg-red-600"
+            className="h-10 w-20 text-white rounded-lg bg-blue-800 hover:bg-blue-700"
             type="submit"
           >
             Cari
@@ -68,7 +74,7 @@ export default function SearchForm() {
           />
           <label
             htmlFor="fieldDefinisi"
-            className="form-check-label inline-block text-gray-800 cursor-pointer"
+            className="form-check-label inline-block cursor-pointer"
           >
             Terminologi
           </label>
@@ -85,7 +91,7 @@ export default function SearchForm() {
           />
           <label
             htmlFor="fieldKeterangan"
-            className="form-check-label inline-block text-gray-800 cursor-pointer"
+            className="form-check-label inline-block cursor-pointer"
           >
             Penjelasan
           </label>
