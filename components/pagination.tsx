@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { PageInfo } from "../services/DataKamusService";
 
 export interface PaginationProps {
   pageInfo: PageInfo;
