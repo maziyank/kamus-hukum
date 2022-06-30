@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<DefinisiPageProps> = async (
     return {
       redirect: {
         destination: `/definisi/${id}/${kamus.Definisi}`,
-        permanent: false,
+        permanent: true,
       },
     };
   }
