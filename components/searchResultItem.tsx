@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Kamus } from "../services/DataKamusService";
 import CopyToClipboardButton from "./copyToClipboardButton";
 import HighlightText from "./highlightText";
 
 export interface SearchResultItemProps {
-  kamusItem: KamusItem;
+  kamusItem: Kamus;
 }
 
 export default function SearchResultItem({

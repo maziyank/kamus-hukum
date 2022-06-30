@@ -1,106 +1,89 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
+import DataKamusService, {
+  Kamus,
+  Paginated,
+} from "../../../services/DataKamusService";
 
 export const getServerSideProps: GetServerSideProps<DefinisiPageProps> = async (
   context
 ) => {
   const definisi = context.query.definisi.toString();
-  const CurrentId = parseInt(context.query.id.toString());
+  const id = parseInt(context.query.id.toString());
 
-  const baseUrl = process.env.API_BASE_URL;
-  const xcAuth = process.env.API_XC_AUTH;
+  const dataKamusService = new DataKamusService();
 
-  const url = `${baseUrl}/Kamus?sort=-Tahun,-No&where=(Definisi,eq,${definisi})&limit=100`;
-  const urlMirip = `${baseUrl}/Kemiripan?sort=-Score&where=(Def1,eq,${CurrentId})&limit=100`;
-
-  const { list: data, pageInfo } = await fetch(url, {
-    headers: { "xc-auth": xcAuth },
-  }).then((response) => response.json());
-
-  const { list: listMirip } = await fetch(urlMirip, {
-    headers: { "xc-auth": xcAuth },
-  }).then((response) => response.json());
-
-  const excludeId = data.map(({ Id }, i) => Id);
-  const listMiripScore = new Map(
-    listMirip
-      .filter(({ Def2 }) => !excludeId.includes(Def2) && Def2 !== CurrentId)
-      .map(({ Def2: Id, Score }) => {
-        return [Id, Score];
-      })
+  const kamus = await dataKamusService.getKamusRead(id);
+  if (!kamus.Id) {
+    return {
+      notFound: true,
+    };
+  }
+  if (definisi !== kamus.Definisi) {
+    return {
+      redirect: {
+        destination: `/definisi/${id}/${kamus.Definisi}`,
+        permanent: false,
+      },
+    };
+  }
+  const definisiLain = await dataKamusService.getDefinisiLain(definisi, id);
+  const definisiMirip = await dataKamusService.getDefinisiMirip(
+    id,
+    definisiLain.list.map(({ Id }) => Id)
   );
-
-  const listMiripId = Array.from(listMiripScore.keys()).join(",");
-  const urlMiripData = `${baseUrl}/Kamus?where=(Id,in,${listMiripId})&limit=100`;
-
-  const { list: miripData } = await fetch(urlMiripData, {
-    headers: { "xc-auth": xcAuth },
-  }).then((response) => response.json());
 
   return {
     props: {
-      CurrentId,
-      definisi,
-      data,
-      pageInfo,
-      listMiripScore: Object.fromEntries(listMiripScore),
-      miripData,
+      kamus,
+      definisiLain,
+      definisiMirip,
     },
-    notFound: !data.length,
   };
 };
 
 export interface DefinisiPageProps {
-  CurrentId: number;
-  definisi: string;
-  data: KamusItem[];
-  miripData: KamusItem[];
-  listMiripScore: any;
-  pageInfo: PageInfo;
+  kamus: Kamus;
+  definisiLain: Paginated<Kamus>;
+  definisiMirip: Paginated<{ kamus: Kamus; Score: string }>;
 }
 
 export default function DefinisiPage({
-  CurrentId,
-  definisi,
-  data,
-  pageInfo,
-  miripData,
-  listMiripScore,
+  kamus,
+  definisiLain,
+  definisiMirip,
 }: DefinisiPageProps) {
   return (
     <div className="w-full p-5">
       <div className="w-full block rounded-lg shadow-lg bg-white text-left p-6 mb-5">
-        <h2 className="text-xl font-bold">{definisi}</h2>
-        {data
-          .filter(({ Id }, i) => CurrentId === Id)
-          .map(({ Id, Url, Sumber, Verified, Keterangan }, i) => (
-            <div key={Id} className="my-2 border-t border-gray-300">
-              <p className="text-gray-700 text-base mt-2">{Keterangan}.</p>
-              <p className="text-black text-sm bg-gray-200 rounded-md p-2 my-2 cursor-pointer">
-                Sumber:{" "}
-                <a href={Url} rel="noreferrer" target="_blank">
-                  {Sumber}
-                </a>
-              </p>
-              <p className="text-black text-sm bg-gray-200 rounded-md p-2 my-2 cursor-pointer">
-                Status:{" "}
-                {Verified ? " Sudah diverifikasi" : " Belum diverifikasi"}
-              </p>
-            </div>
-          ))}
+        <h2 className="text-xl font-bold">{kamus.Definisi}</h2>
+
+        <div className="my-2 border-t border-gray-300">
+          <p className="text-gray-700 text-base mt-2">{kamus.Keterangan}.</p>
+          <p className="text-black text-sm bg-gray-200 rounded-md p-2 my-2 cursor-pointer">
+            Sumber:{" "}
+            <a href={kamus.Url} rel="noreferrer" target="_blank">
+              {kamus.Sumber}
+            </a>
+          </p>
+          <p className="text-black text-sm bg-gray-200 rounded-md p-2 my-2 cursor-pointer">
+            Status:{" "}
+            {kamus.Verified ? " Sudah diverifikasi" : " Belum diverifikasi"}
+          </p>
+        </div>
       </div>
 
-      {data.filter(({ Id }, i) => CurrentId !== Id).length > 0 && (
+      {definisiLain.list.length > 0 && (
         <div className="w-full block rounded-lg shadow-lg bg-white text-left p-6">
           <p>
-            Definisi <b>{definisi}</b> juga digunakan di dalam{" "}
-            {pageInfo.totalRows - 1} Peraturan Perundang-undangan lainnya.
+            Definisi <b>{kamus.Definisi}</b> juga digunakan di dalam{" "}
+            {definisiLain.pageInfo.totalRows} Peraturan Perundang-undangan
+            lainnya.
           </p>
           <div className="border-b border-gray-300 pt-2"></div>
           <ol className="relative border-l border-slate-200 dark:border-slate-700 mt-5 ml-4">
-            {data
-              .filter(({ Id }, i) => CurrentId !== Id)
-              .map(({ Id, Url, Definisi, Sumber, Verified, Keterangan }, i) => (
+            {definisiLain.list.map(
+              ({ Id, Url, Definisi, Sumber, Verified, Keterangan }, i) => (
                 <li className="mb-10 ml-4" key={Id}>
                   <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">
                     {i + 1}
@@ -151,7 +134,8 @@ export default function DefinisiPage({
                     {Keterangan}.
                   </p>
                 </li>
-              ))}
+              )
+            )}
           </ol>
         </div>
       )}
@@ -160,10 +144,14 @@ export default function DefinisiPage({
         <p>Definisi lain dengan penjelasan yang mirip.</p>
         <div className="border-b border-gray-300 pt-2"></div>
         <ol className="relative border-l border-slate-200 dark:border-slate-700 mt-5 ml-4">
-          {miripData
-            .filter(({ Id }, i) => CurrentId !== Id)
-            .sort((a, b) => listMiripScore[b.Id] - listMiripScore[a.Id])
-            .map(({ Id, Url, Definisi, Sumber, Verified, Keterangan }, i) => (
+          {definisiMirip.list.map(
+            (
+              {
+                kamus: { Id, Url, Definisi, Sumber, Verified, Keterangan },
+                Score,
+              },
+              i
+            ) => (
               <li className="mb-10 ml-4" key={Id}>
                 <div className="absolute w-8 h-8 bg-slate-200 rounded-full -left-4 border border-white dark:border-slate-900 dark:bg-slate-700 text-slate-700 flex justify-center items-center text-sm">
                   {i + 1}
@@ -201,10 +189,10 @@ export default function DefinisiPage({
                     )}
                     <div className="has-tooltip">
                       <span className="tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-7 text-white text-xs text-center">
-                        {(listMiripScore[Id] * 100).toFixed(2) + "% Mirip"}
+                        {(parseFloat(Score) * 100).toFixed(2) + "% Mirip"}
                       </span>
                       <span className="text-xs inline-block py-1 px-2 rounded bg-blue-100 text-blue-400 uppercase ml-2 cursor-pointer">
-                        {(listMiripScore[Id] * 100).toFixed(2) + " %"}
+                        {(parseFloat(Score) * 100).toFixed(2) + " %"}
                       </span>
                     </div>
                   </div>
@@ -224,7 +212,8 @@ export default function DefinisiPage({
                   {Keterangan}.
                 </p>
               </li>
-            ))}
+            )
+          )}
         </ol>
       </div>
     </div>

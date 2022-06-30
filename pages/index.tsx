@@ -2,6 +2,10 @@ import { GetServerSideProps } from "next";
 import Pagination from "../components/pagination";
 import SearchForm from "../components/searchForm";
 import SearchResultItem from "../components/searchResultItem";
+import DataKamusService, {
+  Kamus,
+  PageInfo,
+} from "../services/DataKamusService";
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   context
@@ -17,14 +21,14 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   const limit = itemsPerPage;
   const offset = (page - 1) * limit;
 
-  const baseUrl = process.env.API_BASE_URL;
-  const xcAuth = process.env.API_XC_AUTH;
+  const dataKamusService = new DataKamusService();
 
-  const url = `${baseUrl}/Kamus?limit=${limit}&offset=${offset}&sort=-Tahun,-No&where=(${searchField},like,${searchQuery})`;
-
-  const { list: searchResult, pageInfo } = await fetch(url, {
-    headers: { "xc-auth": xcAuth },
-  }).then((response) => response.json());
+  const { list: searchResult, pageInfo } = await dataKamusService.getKamusList(
+    searchQuery,
+    searchField,
+    limit,
+    offset
+  );
 
   return {
     props: {
@@ -35,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
 };
 
 export interface HomeProps {
-  searchResult: KamusItem[];
+  searchResult: Kamus[];
   pageInfo: PageInfo;
 }
 
@@ -56,7 +60,9 @@ export default function Home({ searchResult, pageInfo }: HomeProps) {
             (item, i) => item && <SearchResultItem kamusItem={item} key={i} />
           )}
         </div>
-        {!!searchResult.length && <Pagination pageInfo={pageInfo} maxItems={5} />}
+        {!!searchResult.length && (
+          <Pagination pageInfo={pageInfo} maxItems={5} />
+        )}
 
         {!searchResult.length && (
           <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white rounded-md">
