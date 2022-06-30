@@ -29,7 +29,7 @@ export default class DataKamusService {
   }
 
   async getDefinisiLain(definisi: string, exclude_id: number) {
-    const endpoint = `/Kamus?sort=-Tahun,-No&where=(Definisi,eq,${definisi})~and(Id,not,${exclude_id})&limit=100`;
+    const endpoint = `/Kamus?sort=-Tahun,-No&where=(Definisi,eq,${definisi})~and(Id,neq,${exclude_id})&limit=100`;
     return this.api<Paginated<Kamus>>(endpoint);
   }
 
