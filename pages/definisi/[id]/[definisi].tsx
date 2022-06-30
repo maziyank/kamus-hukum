@@ -97,7 +97,7 @@ export default function DefinisiPage({
                     >
                       <span className="pt-2 cursor-pointer">{Sumber}</span>
                     </a>
-                    {!Verified && (
+                    {Verified && (
                       <div className="has-tooltip">
                         <span className="tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-8 -ml-8 text-white text-xs">
                           Terverifikasi
