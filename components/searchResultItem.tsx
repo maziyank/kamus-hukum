@@ -45,8 +45,8 @@ export default function SearchResultItem({
       </div>
       <Link
         href={{
-          pathname: "/definisi/[definisi]",
-          query: { definisi: Definisi, Id },
+          pathname: "/definisi/[id]/[definisi]",
+          query: { definisi: Definisi, id: Id },
         }}
       >
         <a className="hover:text-blue-300 underline">
