@@ -15,7 +15,7 @@ export default function ThemeTogglerButton() {
 
   return (
     isMounted && (
-      <button onClick={onThemeToggle}>
+      <button onClick={onThemeToggle} aria-label="Set Theme">
         {theme === "dark" ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"

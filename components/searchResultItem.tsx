@@ -24,9 +24,9 @@ export default function SearchResultItem({
           }}
         >
           <a className="hover:text-blue-500 dark:hover:text-blue-300 underline mr-2">
-            <h6 className="font-bold mb-2">
+            <h2 className="font-bold mb-2">
               <HighlightText text={Definisi} keyword={keyword} />
-            </h6>
+            </h2>
           </a>
         </Link>
 
