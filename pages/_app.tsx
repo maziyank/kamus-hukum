@@ -1,7 +1,7 @@
 import { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
-import Head from "next/head";
 import Layout from "../components/layout";
+import SeoTags from "../components/seoTags";
 import useNProgress from "../hooks/useNProgress";
 import "../styles/globals.css";
 
@@ -10,10 +10,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Head>
-        <title>Kamus Hukum</title>
-        <meta name="description" content="Kamus Hukum Indonesia"></meta>
-      </Head>
+      <SeoTags
+        title="Kamus Hukum Indonesia"
+        description="Aplikasi Kamus Hukum memuat kumpulan definisi hukum yang diambil dari peraturan perundang-undangan yang ada di Indonesia."
+      />
       <ThemeProvider attribute="class">
         <Layout>
           <Component {...pageProps} />

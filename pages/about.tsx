@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { useTheme } from 'next-themes'
+import { useTheme } from "next-themes";
+import SeoTags from "../components/seoTags";
 
 const About = () => {
   const router = useRouter();
@@ -7,9 +8,22 @@ const About = () => {
 
   return (
     <>
+      <SeoTags
+        title="Tentang Kami | Kamus Hukum Indonesia"
+        description="Laman berisi hal-hal tentang Kamus Hukum Indonesia dan pihak-pihak yang berkontribusi."
+      />
       <div className="p-8">
         <div className="flex justify-center mb-5">
-        <img src={resolvedTheme == 'dark' ? "/long_logo_white.png" : "/long_logo.png"} alt="me" width="300" height="30" />
+          <img
+            src={
+              resolvedTheme == "dark"
+                ? "/long_logo_white.png"
+                : "/long_logo.png"
+            }
+            alt="me"
+            width="300"
+            height="30"
+          />
         </div>
         <p className="mb-3">
           Aplikasi Kamus Hukum memuat kumpulan definisi hukum yang diambil dari
@@ -28,18 +42,86 @@ const About = () => {
         <div className="border-t border-gray-400 w-full h-2"></div>
         <p className="font-semibold">Developer</p>
         <ol className="pl-4 list-decimal">
-          <li><a href="https://github.com/maziyank" rel="noreferrer" target="_blank">Bakhtiar Amaludin</a></li>
-          <li><a href="https://github.com/mblonyox" rel="noreferrer" target="_blank">Sukirno</a></li>
-          <li><a href="https://github.com/tayarsutayar" rel="noreferrer" target="_blank">Achmadaniar Anindya Rosadi</a></li>
+          <li>
+            <a
+              href="https://github.com/maziyank"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Bakhtiar Amaludin
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/mblonyox"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Sukirno
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/tayarsutayar"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Achmadaniar Anindya Rosadi
+            </a>
+          </li>
         </ol>
         <p className="font-semibold mt-2">Data Management:</p>
         <ol className="pl-4 list-decimal">
-        <li><a href="#" rel="noreferrer" target="_blank">Zachroni</a></li>
-          <li><a href="https://id.linkedin.com/in/i-gede-yudi-paramartha-99613073" rel="noreferrer" target="_blank">I Gede Yudi Paramartha</a></li>
-          <li><a href="https://id.linkedin.com/in/putujasprayana" rel="noreferrer" target="_blank">Putu Jasprayana M.P.</a></li>
-          <li><a href="https://id.linkedin.com/in/ismulaksan92" rel="noreferrer" target="_blank">Ismul Aksan</a></li>
-          <li><a href="https://id.linkedin.com/in/ika-kardian-rahmatullah-ba84a685" rel="noreferrer" target="_blank">Ika Kardian Rahmatullah</a></li>
-          <li><a href="https://id.linkedin.com/in/iqbal-irsyaddi-70988a5a" rel="noreferrer" target="_blank">Iqbal Irsyaddi</a></li>
+          <li>
+            <a href="#" rel="noreferrer" target="_blank">
+              Zachroni
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://id.linkedin.com/in/i-gede-yudi-paramartha-99613073"
+              rel="noreferrer"
+              target="_blank"
+            >
+              I Gede Yudi Paramartha
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://id.linkedin.com/in/putujasprayana"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Putu Jasprayana M.P.
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://id.linkedin.com/in/ismulaksan92"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Ismul Aksan
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://id.linkedin.com/in/ika-kardian-rahmatullah-ba84a685"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Ika Kardian Rahmatullah
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://id.linkedin.com/in/iqbal-irsyaddi-70988a5a"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Iqbal Irsyaddi
+            </a>
+          </li>
         </ol>
 
         <div
@@ -56,8 +138,16 @@ const About = () => {
               rel="noreferrer"
               target="_blank"
             >
-              di sini </a> atau kirimkan pesan ke <a rel="noreferrer" target="_blank" href="mailto:admin@kamus-hukum.com">admin@kamus-hukum.com</a>
-
+              di sini{" "}
+            </a>{" "}
+            atau kirimkan pesan ke{" "}
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="mailto:admin@kamus-hukum.com"
+            >
+              admin@kamus-hukum.com
+            </a>
           </p>
         </div>
       </div>

@@ -1,10 +1,15 @@
 import { useRouter } from "next/router";
+import SeoTags from "../components/seoTags";
 
 export default function Disclaimer() {
   const router = useRouter();
 
   return (
     <>
+      <SeoTags
+        title="Disclaimer | Kamus Hukum Indonesia"
+        description="Laman berisi prasyarat penggunaan Kamus Hukum Indonesia."
+      />
       <div className="w-full p-8">
         <h1 className="text-xl font-bold mb-2">Disclaimer</h1>
         <div className="border-t border-gray-400 w-full h-2"></div>

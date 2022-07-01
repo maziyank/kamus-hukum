@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
+import SeoTags from "../../../components/seoTags";
 import DataKamusService, {
   Kamus,
   Paginated,
@@ -55,6 +56,11 @@ export default function DefinisiPage({
 }: DefinisiPageProps) {
   return (
     <div className="w-full p-5">
+      <SeoTags
+        title={`Definisi ${kamus.Definisi} menurut ${kamus.Sumber} | Kamus Hukum Indonesia`}
+        description={kamus.Keterangan}
+      />
+
       <div className="w-full block rounded-lg shadow-lg bg-white dark:bg-slate-700 text-left p-6 mb-5">
         <h2 className="text-xl font-bold">{kamus.Definisi}</h2>
 
