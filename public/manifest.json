@@ -1,0 +1,41 @@
+{
+    "name": "Kamus Hukum Indonesia",
+    "short_name": "Kamus Hukum",
+    "descritpion": "Aplikasi Kamus Hukum memuat kumpulan definisi hukum yang diambil dari peraturan perundang-undangan yang ada di Indonesia.",
+    "categories": [
+        "productivity",
+        "government",
+        "education"
+    ],
+    "lang": "id-ID",
+    "start_url": "/",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/android-launchericon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/icons/android-launchericon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "theme_color": "#023047",
+    "background_color": "#D6DCE5",
+    "display": "standalone",
+    "orientation": "portrait"
+}
