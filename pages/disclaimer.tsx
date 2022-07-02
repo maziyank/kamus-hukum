@@ -37,7 +37,9 @@ export default function Disclaimer() {
           <li className="mt-2">
             Pengguna mungkin akan menemui satu definisi dengan penjelasan yang
             berbeda. Hal ini terjadi karena pada dasarnya definisi bisa dibatasi
-            konteks yang dinyatakan dalam setiap regulasi. Dalam Ketentuan Umum
+            konteks yang dinyatakan dalam setiap regulasi sebagaimana tercantum
+            dalam Angka 104 Lampiran II UU 13 Tahun 2022 tentang Perubahan Kedua atas
+            Pembentukan Peraturan Perundang-Undangan. Dalam Ketentuan Umum
             peraturan perundang-undangan umumnya dicantumkan kalimat “Dalam …
             (diisi jenis peraturan perundang-undangan) ini yang dimaksud dengan:
             ....”. Hal ini menjadi batasan dari konteks atas penjelasan definisi
