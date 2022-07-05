@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <meta
           name="google-site-verification"
-          content="Y8Jgr7-kIDCWbqqboq-OIqk625BKYpDn1q7eTi45agk"
+          content="4vpciOBGJmcunIgovbRpPou9NOFiskaj6D_jQT1Q1gY"
         />
         <link
           rel="apple-touch-icon"
