@@ -11,9 +11,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return getServerSideSitemap(
     context,
-    list.map(({ Id, Definisi }) => ({
+    list.map(({ Id, Definisi, UpdatedAt }) => ({
       loc: `${rootUrl}/definisi/${Id}/${Definisi}`,
-      lastmod: new Date().toISOString(),
+      lastmod: new Date(UpdatedAt).toISOString(),
     }))
   );
 };
