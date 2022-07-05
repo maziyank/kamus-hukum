@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { getServerSideSitemapIndex } from "next-sitemap";
+import { getServerSideSitemap } from "next-sitemap";
 import DataKamusService from "../services/DataKamusService";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -9,9 +9,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const { list } = await dataKamusService.getKamusList("", "Definisi", 100, 0);
 
-  return getServerSideSitemapIndex(
+  return getServerSideSitemap(
     context,
-    list.map(({ Id, Definisi }) => `${rootUrl}/definisi/${Id}/${Definisi}`)
+    list.map(({ Id, Definisi }) => ({
+      loc: `${rootUrl}/definisi/${Id}/${Definisi}`,
+      lastmod: new Date().toISOString(),
+    }))
   );
 };
 
