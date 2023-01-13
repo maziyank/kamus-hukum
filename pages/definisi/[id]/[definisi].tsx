@@ -1,4 +1,4 @@
-import { GetServerSideProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
 import SeoTags from "../../../components/seoTags";
 import DataKamusService, {
@@ -6,14 +6,12 @@ import DataKamusService, {
   Paginated,
 } from "../../../services/DataKamusService";
 
-export const getServerSideProps: GetServerSideProps<DefinisiPageProps> = async (
+export const getStaticProps: GetStaticProps<DefinisiPageProps> = async (
   context
 ) => {
-  const definisi = context.query.definisi.toString();
-  const id = parseInt(context.query.id.toString());
-
+  const definisi = context.params.definisi.toString();
+  const id = parseInt(context.params.id.toString());
   const dataKamusService = new DataKamusService();
-
   const kamus = await dataKamusService.getKamusRead(id);
   if (!kamus.Id) {
     return {
@@ -40,6 +38,21 @@ export const getServerSideProps: GetServerSideProps<DefinisiPageProps> = async (
       definisiLain,
       definisiMirip,
     },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const dataKamusService = new DataKamusService();
+  const kamus = await dataKamusService.getKamusList("", "Definisi", 100, 0);
+  const paths = kamus.list.map((k) => ({
+    params: {
+      id: k.Id.toString(),
+      definisi: k.Definisi,
+    },
+  }));
+  return {
+    paths,
+    fallback: "blocking",
   };
 };
 
