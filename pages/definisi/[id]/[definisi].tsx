@@ -110,11 +110,11 @@ export default function DefinisiPage({
                   <div className="flex flex-row justify-between mb-2 text-sm font-normal leading-none">
                     <a
                       href={Url}
-                      className="pt-2"
+                      className="py-2 cursor-pointer"
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <span className="pt-2 cursor-pointer">{Sumber}</span>
+                      {Sumber}
                     </a>
                     {Verified && (
                       <div className="has-tooltip">
@@ -144,7 +144,7 @@ export default function DefinisiPage({
                       query: { definisi: Definisi, id: Id },
                     }}
                   >
-                    <a className="text-md font-bold hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer">
+                    <a className="text-md font-bold py-1 hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer">
                       {Definisi}
                     </a>
                   </Link>
@@ -178,12 +178,12 @@ export default function DefinisiPage({
                   </div>
                   <div className="flex flex-row justify-between mb-2 text-sm font-normal leading-none">
                     <a
-                      className="pt-2"
+                      className="py-2 cursor-pointer"
                       href={Url}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <span className="cursor-pointer">{Sumber}</span>
+                      {Sumber}
                     </a>
                     {Verified && (
                       <div className="has-tooltip">
@@ -221,7 +221,7 @@ export default function DefinisiPage({
                       query: { definisi: Definisi, id: Id },
                     }}
                   >
-                    <a className="text-md font-bold hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer">
+                    <a className="text-md font-bold py-1 hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer">
                       {Definisi}
                     </a>
                   </Link>
