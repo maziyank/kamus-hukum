@@ -1,46 +1,30 @@
 import { useRouter } from "next/router";
-import {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { FormEvent, useCallback } from "react";
 
 export default function SearchForm() {
   const router = useRouter();
 
-  const [query, setQuery] = useState(router.query.query || "");
-  const [field, setField] = useState(router.query.field || "Definisi");
+  const query = router.query.query || "";
+  const field = router.query.field || "Definisi";
 
-  useEffect(() => {
-    setQuery(router.query.query || "");
-    setField(router.query.field || "Definisi");
-  }, [router]);
-
-  const onQueryChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => setQuery(event.target.value),
-    []
-  );
-  const onFieldChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => setField(event.target.value),
-    []
-  );
-  const onFormSubmit = useCallback(
+  const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const form = event.target as HTMLFormElement;
+      const query = form.query.value;
+      const field = form.field.value;
       router.push({
         query: {
           query,
           field,
         },
       });
-      event.preventDefault();
     },
-    [router, query, field]
+    []
   );
 
   return (
-    <form method="GET" onSubmit={onFormSubmit}>
+    <form method="GET" onSubmit={handleSubmit}>
       <div className="relative pt-3 px-5">
         <input
           type="text"
@@ -48,8 +32,7 @@ export default function SearchForm() {
           id="inputQuery"
           name="query"
           placeholder="Cari istilah hukum di sini..."
-          value={query}
-          onChange={onQueryChange}
+          defaultValue={query}
         />
         <div className="absolute top-10 right-7">
           <button
@@ -69,8 +52,7 @@ export default function SearchForm() {
             name="field"
             id="fieldDefinisi"
             value="Definisi"
-            checked={field === "Definisi"}
-            onChange={onFieldChange}
+            defaultChecked={field === "Definisi"}
           />
           <label
             htmlFor="fieldDefinisi"
@@ -86,8 +68,7 @@ export default function SearchForm() {
             name="field"
             id="fieldKeterangan"
             value="Keterangan"
-            checked={field === "Keterangan"}
-            onChange={onFieldChange}
+            defaultChecked={field === "Keterangan"}
           />
           <label
             htmlFor="fieldKeterangan"
