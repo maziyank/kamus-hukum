@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/analytics": "^0.1.8",
     "next": "12.1.6",
     "next-pwa": "^5.5.4",
     "next-sitemap": "^3.1.10",
