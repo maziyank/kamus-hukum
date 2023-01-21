@@ -66,7 +66,7 @@ export default function Home({ searchResult, pageInfo }: HomeProps) {
 
         {!searchResult.length && (
           <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white dark:bg-slate-700 rounded-md">
-            Maaf, tidak ditemukan hasil. <br /> Silakan coba dengan kata kunci
+            Maaf, pencarian tidak menemukan hasil. <br /> Silakan coba dengan kata kunci
             yang lain.
           </div>
         )}

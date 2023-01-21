@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <SeoTags
         title="Kamus Hukum Indonesia"
-        description="Aplikasi Kamus Hukum memuat kumpulan definisi hukum yang diambil dari peraturan perundang-undangan yang ada di Indonesia."
+        description="Aplikasi Kamus Hukum Indonesia memuat kumpulan definisi atau istilah hukum yang diambil dari peraturan perundang-undangan yang ada di Indonesia."
       />
       <ThemeProvider attribute="class">
         <Layout>
