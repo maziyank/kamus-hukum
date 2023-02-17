@@ -10,7 +10,7 @@ export interface PaginationProps {
 export default function Pagination({ pageInfo, maxItems }: PaginationProps) {
   const router = useRouter();
 
-  const lastPage = Math.ceil(pageInfo.totalRows / parseInt(pageInfo.pageSize));
+  const lastPage = Math.ceil(pageInfo.totalRows / pageInfo.pageSize);
 
   const items = [pageInfo.page];
   let i = 1;

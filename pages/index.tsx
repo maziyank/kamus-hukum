@@ -2,10 +2,7 @@ import { GetServerSideProps } from "next";
 import Pagination from "../components/pagination";
 import SearchForm from "../components/searchForm";
 import SearchResultItem from "../components/searchResultItem";
-import DataKamusService, {
-  Kamus,
-  PageInfo,
-} from "../services/DataKamusService";
+import { getKamusList, Kamus, PageInfo } from "../services/DataKamusService";
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   context
@@ -13,17 +10,14 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   const searchQuery = context.query.query?.toString() ?? "";
   const searchField =
     context.query.field?.toString() === "Keterangan"
-      ? "Keterangan"
-      : "Definisi";
-
+      ? "keterangan"
+      : "definisi";
   const page = parseInt(context.query.page?.toString()) || 1;
   const itemsPerPage = parseInt(context.query.itemsPerPage?.toString()) || 10;
   const limit = itemsPerPage;
   const offset = (page - 1) * limit;
 
-  const dataKamusService = new DataKamusService();
-
-  const { list: searchResult, pageInfo } = await dataKamusService.getKamusList(
+  const { list: searchResult, pageInfo } = await getKamusList(
     searchQuery,
     searchField,
     limit,
@@ -66,8 +60,8 @@ export default function Home({ searchResult, pageInfo }: HomeProps) {
 
         {!searchResult.length && (
           <div className="p-6 m-6 border-gray-200 text-center shadow-lg bg-white dark:bg-slate-700 rounded-md">
-            Maaf, pencarian tidak menemukan hasil. <br /> Silakan coba dengan kata kunci
-            yang lain.
+            Maaf, pencarian tidak menemukan hasil. <br /> Silakan coba dengan
+            kata kunci yang lain.
           </div>
         )}
 

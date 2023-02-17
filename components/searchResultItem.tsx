@@ -9,7 +9,7 @@ export interface SearchResultItemProps {
 }
 
 export default function SearchResultItem({
-  kamusItem: { Id, Definisi, Keterangan, Sumber, Url, Verified },
+  kamusItem: { id, definisi, keterangan, sumber, url, verified },
 }: SearchResultItemProps) {
   const router = useRouter();
   const keyword = router.query.query?.toString();
@@ -20,17 +20,17 @@ export default function SearchResultItem({
         <Link
           href={{
             pathname: "/definisi/[id]/[definisi]",
-            query: { definisi: Definisi, id: Id },
+            query: { definisi, id },
           }}
         >
           <a className="hover:text-blue-500 dark:hover:text-blue-300 underline mr-2">
             <h2 className="font-bold mb-2">
-              <HighlightText text={Definisi} keyword={keyword} />
+              <HighlightText text={definisi} keyword={keyword} />
             </h2>
           </a>
         </Link>
 
-        {Verified && (
+        {verified && (
           <div className="has-tooltip">
             <span className="tooltip rounded shadow-lg p-1 bg-gray-800 opacity-80 -mt-8 -ml-8 text-white text-xs">
               Terverifikasi
@@ -54,15 +54,15 @@ export default function SearchResultItem({
       </div>
 
       <p className="text-slate-700 dark:text-slate-50 text-base mb-4 break-words">
-        <HighlightText text={Keterangan + "."} keyword={keyword} />
+        <HighlightText text={keterangan + "."} keyword={keyword} />
       </p>
       <div className="w-full flex justify-between">
-        <a href={Url} target="_blank" rel="noreferrer">
+        <a href={url} target="_blank" rel="noreferrer">
           <span className="text-xs inline-block py-1 px-2 rounded bg-slate-200 dark:bg-slate-600 hover:bg-blue-100 uppercase mb-3">
-            {Sumber}
+            {sumber}
           </span>
         </a>
-        <CopyToClipboardButton data={Keterangan} />
+        <CopyToClipboardButton data={keterangan} />
       </div>
     </div>
   );

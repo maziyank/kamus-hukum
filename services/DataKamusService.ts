@@ -1,86 +1,119 @@
-export default class DataKamusService {
-  private baseUrl: string;
-  private xcAuth: string;
+import { Database } from "../lib/database.types";
+import { supabase } from "../lib/supabase";
 
-  constructor(baseUrl?: string, xcAuth?: string) {
-    this.baseUrl = baseUrl ?? process.env.API_BASE_URL;
-    this.xcAuth = xcAuth ?? process.env.API_XC_AUTH;
-  }
-
-  private async api<T>(endpoint): Promise<T> {
-    return await fetch(this.baseUrl + endpoint, {
-      headers: { "xc-auth": this.xcAuth },
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json() as Promise<T>;
+export async function getKamusList(
+  keyword: string,
+  field: "definisi" | "keterangan",
+  limit = 10,
+  offset = 0
+): Promise<Paginated<Kamus>> {
+  let countQuery = supabase
+    .from("kamus")
+    .select("*", { head: true, count: "exact" });
+  let dataQuery = supabase
+    .from("kamus")
+    .select()
+    .order("verified", { ascending: false })
+    .order("id", { ascending: false })
+    .range(offset, offset + limit);
+  if (keyword.trim().length) {
+    countQuery = countQuery.textSearch(field, keyword.trim(), {
+      type: "websearch",
+    });
+    dataQuery = dataQuery.textSearch(field, keyword.trim(), {
+      type: "websearch",
     });
   }
-
-  async getKamusList(keyword: string, field: string, limit = 10, offset = 0) {
-    const endpoint = `/Kamus?limit=${limit}&offset=${offset}&sort=-Tahun,-No&where=(${field},like,${keyword})`;
-    return this.api<Paginated<Kamus>>(endpoint);
-  }
-
-  async getKamusRead(id: number) {
-    const endpoint = `/Kamus/${id}`;
-    return this.api<Kamus>(endpoint);
-  }
-
-  async getDefinisiLain(definisi: string, exclude_id: number) {
-    const endpoint = `/Kamus?sort=-Tahun,-No&where=(Definisi,eq,${definisi})~and(Id,neq,${exclude_id})&limit=100`;
-    return this.api<Paginated<Kamus>>(endpoint);
-  }
-
-  async getDefinisiMirip(id: number, exclude_ids: number[]) {
-    const exclude_vals = exclude_ids.join(",");
-    const endpoint = `/Kemiripan?sort=-Score&where=(Def1,eq,${id})~and(~not(Def2,in,${exclude_vals}))&limit=100`;
-    return await this.api<Paginated<Kemiripan>>(endpoint).then(
-      async ({ list, pageInfo }) => ({
-        list: await Promise.all(
-          list.map(async ({ Score, Def2 }) => ({
-            kamus: await this.getKamusRead(Def2),
-            Score,
-          }))
-        ),
-        pageInfo,
-      })
-    );
-  }
+  const countResult = await countQuery;
+  if (countResult.error)
+    throw Error("Error getting totalRows: " + countResult.error.message);
+  const count = countResult.count;
+  const { data, error } = await dataQuery;
+  if (error) throw Error("Error getting kamus datas: " + error.message);
+  return {
+    list: data,
+    pageInfo: {
+      isFirstPage: offset === 0,
+      isLastPage: offset + limit < count,
+      totalRows: count,
+      page: Math.floor(offset / limit) + 1,
+      pageSize: limit,
+    },
+  };
 }
 
-export interface Kamus {
-  Id: number;
-  Definisi: string;
-  Keterangan: string;
-  Sumber: string;
-  Url: string;
-  No: number;
-  Tahun: number;
-  CreatedAt: string;
-  UpdatedAt: string;
-  Verified: boolean;
+export async function getKamusRead(id: number): Promise<Kamus> {
+  const { data, error } = await supabase
+    .from("kamus")
+    .select()
+    .eq("id", id)
+    .single();
+  if (error) throw Error("Error getting single kamus data: " + error.message);
+  return data;
 }
 
-export interface Kemiripan {
-  Def1: number;
-  Def2: number;
-  Score: string;
-  Id: number;
-  CreatedAt: string;
-  UpdatedAt: string;
+export async function getDefinisiLain(
+  definisi: string,
+  exclude_id: number
+): Promise<Paginated<Kamus>> {
+  const { count, data, error } = await supabase
+    .from("kamus")
+    .select("*", { count: "exact" })
+    .eq("definisi", definisi)
+    .neq("id", exclude_id);
+  if (error)
+    throw Error("Error getting definisi lain kamus datas: " + error.message);
+  return {
+    list: data,
+    pageInfo: {
+      isFirstPage: true,
+      isLastPage: true,
+      totalRows: count,
+      page: 1,
+      pageSize: 1000,
+    },
+  };
 }
 
-export interface PageInfo {
+export async function getDefinisiMirip(
+  id: number,
+  exclude_ids: number[]
+): Promise<Paginated<Kemiripan>> {
+  const { count, data, error } = await supabase
+    .from("kemiripan")
+    .select("id, score, kamus:kamus(*)", { count: "exact" })
+    .eq("def2", id)
+    .not("def1", "in", `(${exclude_ids.join(",")})`);
+  if (error) {
+    throw Error("Error getting definisi mirip kamus datas: " + error.message);
+  }
+  return {
+    list: data as Kemiripan[],
+    pageInfo: {
+      isFirstPage: true,
+      isLastPage: true,
+      totalRows: count,
+      page: 1,
+      pageSize: 1000,
+    },
+  };
+}
+
+export type Kamus = Database["public"]["Tables"]["kamus"]["Row"];
+export type Kemiripan = Pick<
+  Database["public"]["Tables"]["kemiripan"]["Row"],
+  "id" | "score"
+> & { kamus: Kamus };
+
+export type PageInfo = {
   totalRows: number;
   page: number;
-  pageSize: string;
+  pageSize: number;
   isFirstPage: boolean;
   isLastPage: boolean;
-}
+};
 
-export interface Paginated<T> {
+export type Paginated<T> = {
   list: T[];
   pageInfo: PageInfo;
-}
+};
