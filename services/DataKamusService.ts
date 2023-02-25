@@ -81,9 +81,9 @@ export async function getDefinisiMirip(
 ): Promise<Paginated<Kemiripan>> {
   const { count, data, error } = await supabase
     .from("kemiripan")
-    .select("id, score, kamus:kamus(*)", { count: "exact" })
-    .eq("def2", id)
-    .not("def1", "in", `(${exclude_ids.join(",")})`);
+    .select("id, score, kamus:kamus!def2(*)", { count: "exact" })
+    .eq("def1", id)
+    .not("def2", "in", `(${exclude_ids.join(",")})`);
   if (error) {
     throw Error("Error getting definisi mirip kamus datas: " + error.message);
   }
