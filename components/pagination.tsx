@@ -32,30 +32,23 @@ export default function Pagination({ pageInfo, maxItems }: PaginationProps) {
           href={{
             query: { ...router.query, page: 1 },
           }}
+          className="px-4 py-2 bg-slate-300 dark:bg-slate-700 rounded-md hover:bg-blue-400 dark:hover:bg-blue-600"
         >
-          <a className="px-4 py-2 bg-slate-300 dark:bg-slate-700 rounded-md hover:bg-blue-400 dark:hover:bg-blue-600">
             Awal
-          </a>
         </Link>
       )}
       {items.map((i) => (
-        <Link key={i} href={{ query: { ...router.query, page: i } }}>
-          <a
-            className={`px-4 py-2 rounded-md hover:bg-blue-400 dark:hover:bg-blue-600 ${
-              i == pageInfo["page"]
-                ? "bg-blue-300 dark:bg-blue-700 font-bold"
-                : "bg-slate-300 dark:bg-slate-700"
-            }`}
-          >
+        <Link key={i} href={{ query: { ...router.query, page: i } }} className={`px-4 py-2 rounded-md hover:bg-blue-400 dark:hover:bg-blue-600 ${
+          i == pageInfo["page"]
+            ? "bg-blue-300 dark:bg-blue-700 font-bold"
+            : "bg-slate-300 dark:bg-slate-700"
+        }`}>
             {i}
-          </a>
         </Link>
       ))}
       {!pageInfo.isLastPage && (
-        <Link key="last" href={{ query: { ...router.query, page: lastPage } }}>
-          <a className="px-4 py-2 bg-slate-300 dark:bg-slate-700 rounded-md hover:bg-blue-400 dark:hover:bg-blue-600">
+        <Link key="last" href={{ query: { ...router.query, page: lastPage } }} className="px-4 py-2 bg-slate-300 dark:bg-slate-700 rounded-md hover:bg-blue-400 dark:hover:bg-blue-600">
             Akhir
-          </a>
         </Link>
       )}
     </div>

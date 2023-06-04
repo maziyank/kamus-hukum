@@ -146,10 +146,9 @@ export default function DefinisiPage({
                       pathname: "/definisi/[id]/[definisi]",
                       query: { definisi, id },
                     }}
+                    className="text-md font-bold py-1 hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer"
                   >
-                    <a className="text-md font-bold py-1 hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer">
                       {definisi}
-                    </a>
                   </Link>
 
                   <p className="text-base font-normal break-words">
@@ -223,10 +222,9 @@ export default function DefinisiPage({
                       pathname: "/definisi/[id]/[definisi]",
                       query: { definisi, id },
                     }}
+                    className="text-md font-bold py-1 hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer"
                   >
-                    <a className="text-md font-bold py-1 hover:text-blue-500 dark:hover:text-blue-300 hover:underline cursor-pointer">
                       {definisi}
-                    </a>
                   </Link>
 
                   <p className="mb-4 text-base font-normal break-words">

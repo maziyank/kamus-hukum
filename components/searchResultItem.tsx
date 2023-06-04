@@ -22,12 +22,11 @@ export default function SearchResultItem({
             pathname: "/definisi/[id]/[definisi]",
             query: { definisi, id },
           }}
+          className="hover:text-blue-500 dark:hover:text-blue-300 underline mr-2"
         >
-          <a className="hover:text-blue-500 dark:hover:text-blue-300 underline mr-2">
             <h2 className="font-bold mb-2">
               <HighlightText text={definisi} keyword={keyword} />
             </h2>
-          </a>
         </Link>
 
         {verified && (
