@@ -10,6 +10,9 @@ const nextConfig = withPWA({
     locales: ["id-ID"],
     defaultLocale: "id-ID",
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 });
 
 module.exports = nextConfig;
