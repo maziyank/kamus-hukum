@@ -3,7 +3,6 @@ import { ThemeProvider } from "next-themes";
 import Layout from "../components/layout";
 import SeoTags from "../components/seoTags";
 import useNProgress from "../hooks/useNProgress";
-import { Analytics } from '@vercel/analytics/react';
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -18,7 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute="class">
         <Layout>
           <Component {...pageProps} />
-          <Analytics />
         </Layout>
       </ThemeProvider>
     </>
